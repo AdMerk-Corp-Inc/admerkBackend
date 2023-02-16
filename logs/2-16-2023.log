@@ -1,0 +1,1 @@
+2023-02-16T07:48:49.320Z  [ERROR  ] - select * from `users` where `email` = 'admin@gmail.com' and `password` = '202cb962ac59075b964b07152d234b70' - ER_BAD_FIELD_ERROR: Unknown column 'password' in 'where clause'
