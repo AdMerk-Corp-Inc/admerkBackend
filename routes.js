@@ -15,14 +15,14 @@ router.post('/register-sponsor',UserController.register)
 
 // skills related routes
 router.post('/create-skill',checkAuth,SkillsController.create)
-router.get('/skills-list',checkAuth,SkillsController.getList)
+router.get('/skills-list',SkillsController.getList)
 router.get('/skill-detail/:id',checkAuth,SkillsController.getDetail)
 router.post('/update-skill/:id',checkAuth,SkillsController.update)
 router.get('/delete-skill/:id',checkAuth,SkillsController.deleteData)
 
 // hobby related routes
 router.post('/create-hobby',checkAuth,HobbyController.create)
-router.get('/hobby-list',checkAuth,HobbyController.getList)
+router.get('/hobby-list',HobbyController.getList)
 router.get('/hobby-detail/:id',checkAuth,HobbyController.getDetail)
 router.post('/update-hobby/:id',checkAuth,HobbyController.update)
 router.get('/delete-hobby/:id',checkAuth,HobbyController.deleteData)
