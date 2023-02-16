@@ -3,6 +3,8 @@ const express = require('express')
 const UserController = require('./controllers/UserController');
 const SkillsController = require('./controllers/SkillsController')
 const HobbyController = require('./controllers/HobbyController')
+const TicketController = require('./controllers/TicketController')
+
 const { checkAuth } = require('./middlewares');
 const logger = require('./logger');
 
@@ -26,6 +28,12 @@ router.get('/hobby-list',HobbyController.getList)
 router.get('/hobby-detail/:id',checkAuth,HobbyController.getDetail)
 router.post('/update-hobby/:id',checkAuth,HobbyController.update)
 router.get('/delete-hobby/:id',checkAuth,HobbyController.deleteData)
+
+// ticket routes
+router.post('/create-ticket',checkAuth,TicketController.create)
+router.get('/all-tickets',checkAuth,TicketController.getAll)
+router.get('/ticket-detail/:id',checkAuth,TicketController.detail)
+
 
 // country routes
 router.get('/country-list',async (req,res) => {
