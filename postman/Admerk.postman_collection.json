@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "2ada5add-cf5b-4bf7-be5f-7d707ded8884",
+		"name": "Admerk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "admin@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}login",
+							"host": [
+								"{{url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register-refugee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Jhon Doe",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "jhon@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "default"
+								},
+								{
+									"key": "role",
+									"value": "4",
+									"type": "default"
+								},
+								{
+									"key": "country_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "country_name",
+									"value": "Afghanistan",
+									"type": "default"
+								},
+								{
+									"key": "country_code",
+									"value": "93",
+									"type": "default"
+								},
+								{
+									"key": "dob",
+									"value": "19/08/1997",
+									"type": "default"
+								},
+								{
+									"key": "whatsapp_number",
+									"value": "8562067021",
+									"type": "default"
+								},
+								{
+									"key": "graduation",
+									"value": "BSC",
+									"type": "default"
+								},
+								{
+									"key": "skills",
+									"value": "software development,python",
+									"type": "default"
+								},
+								{
+									"key": "hobby",
+									"value": "badminton,football",
+									"type": "default"
+								},
+								{
+									"key": "profile_photo",
+									"type": "file",
+									"src": "/Users/alihussainkabri/Desktop/Screenshot 2023-01-31 at 1.45.19 AM.png"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "dddshdg\najhjdahdah\nadsadhad\nsdahsgdahsd",
+									"type": "default"
+								},
+								{
+									"key": "from_usa",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}register-refugee",
+							"host": [
+								"{{url}}register-refugee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register-sponsor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "web companu",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "websponsor@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "default"
+								},
+								{
+									"key": "role",
+									"value": "3",
+									"type": "default"
+								},
+								{
+									"key": "country_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "country_name",
+									"value": "Afghanistan",
+									"type": "default"
+								},
+								{
+									"key": "country_code",
+									"value": "93",
+									"type": "default"
+								},
+								{
+									"key": "whatsapp_number",
+									"value": "8562067021",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}register-sponsor",
+							"host": [
+								"{{url}}register-sponsor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "skills",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Web Designing",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}create-skill",
+							"host": [
+								"{{url}}create-skill"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Web Designing",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}update-skill/1",
+							"host": [
+								"{{url}}update-skill"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}skills-list",
+							"host": [
+								"{{url}}skills-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}skill-detail/1",
+							"host": [
+								"{{url}}skill-detail"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}delete-skill/1",
+							"host": [
+								"{{url}}delete-skill"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hobby",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Web Designing",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}create-hobby",
+							"host": [
+								"{{url}}create-hobby"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Web Designing",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}update-hobby/1",
+							"host": [
+								"{{url}}update-hobby"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}hobby-list",
+							"host": [
+								"{{url}}hobby-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}hobby-detail/1",
+							"host": [
+								"{{url}}hobby-detail"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}delete-hobby/1",
+							"host": [
+								"{{url}}delete-hobby"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "country-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}country-list",
+					"host": [
+						"{{url}}country-list"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiaWQiOjEsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiY291bnRyeV9pZCI6bnVsbCwiY291bnRyeV9jb2RlIjpudWxsLCJjb3VudHJ5X25hbWUiOm51bGwsImRvYiI6bnVsbCwid2hhdHNhcHBfbnVtYmVyIjpudWxsLCJncmFkdWF0aW9uIjpudWxsLCJza2lsbHMiOm51bGwsImhvYmJ5IjpudWxsLCJwcm9maWxlX3Bob3RvIjpudWxsLCJnZW5kZXIiOm51bGwsImZyb21fdXNhIjoyLCJkZXNjcmlwdGlvbiI6bnVsbCwicm9sZSI6MSwic3RhdHVzIjoxLCJjcmVhdGVkX2J5IjpudWxsLCJjcmVhdGVkX2RhdGUiOm51bGwsInVwZGF0ZWRfYnkiOm51bGwsInVwZGF0ZWRfZGF0ZSI6bnVsbCwicGFzc3dvcmQiOiIyMDJjYjk2MmFjNTkwNzViOTY0YjA3MTUyZDIzNGI3MCJ9LCJpYXQiOjE2NzY1MzM4NDB9.sshFgvj6Mn6GTujRe_oqbGjPtri1lf4rnLGNG2IS5qM",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
