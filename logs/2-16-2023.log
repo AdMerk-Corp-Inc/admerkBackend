@@ -1,1 +1,4 @@
 2023-02-16T07:48:49.320Z  [ERROR  ] - select * from `users` where `email` = 'admin@gmail.com' and `password` = '202cb962ac59075b964b07152d234b70' - ER_BAD_FIELD_ERROR: Unknown column 'password' in 'where clause'
+2023-02-16T14:03:54.839Z  [ERROR  ] - insert into `tickets` (`created_by`, `created_date`, `description`, `title`) values (1, '2023-02-16 19:33:54', 'shshdsdsd', 'NEED HELP') - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-16T14:06:08.832Z  [ERROR  ] - Cannot read properties of undefined (reading 'params')
+2023-02-16T14:06:33.091Z  [ERROR  ] - Cannot read properties of undefined (reading 'params')

@@ -63,6 +63,9 @@ async function login(req, res) {
                         { user_data: user_data },
                         process.env.SECRET_KEY
                     );
+
+                    status = 200
+                    message = "User logged in successfully!"
                 } else {
                     status = 300
                     message = "Account is not active"

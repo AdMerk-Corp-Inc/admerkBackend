@@ -33,7 +33,7 @@ router.get('/delete-hobby/:id',checkAuth,HobbyController.deleteData)
 router.post('/create-ticket',checkAuth,TicketController.create)
 router.get('/all-tickets',checkAuth,TicketController.getAll)
 router.get('/ticket-detail/:id',checkAuth,TicketController.detail)
-
+router.get('/change-ticket-status/:id/:status',checkAuth,TicketController.changeStatus)
 
 // country routes
 router.get('/country-list',async (req,res) => {

@@ -406,6 +406,109 @@
 			]
 		},
 		{
+			"name": "tickets",
+			"item": [
+				{
+					"name": "create-ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "NEED HELP",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "shshdsdsd",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}create-ticket",
+							"host": [
+								"{{url}}create-ticket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}all-tickets",
+							"host": [
+								"{{url}}all-tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-tickets-status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}all-tickets?status=1",
+							"host": [
+								"{{url}}all-tickets"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ticket-detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}ticket-detail/1",
+							"host": [
+								"{{url}}ticket-detail"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-ticket-status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}change-ticket-status/1/2",
+							"host": [
+								"{{url}}change-ticket-status"
+							],
+							"path": [
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "country-list",
 			"request": {
 				"method": "GET",
