@@ -22,7 +22,7 @@ async function HomeFeed(req,res){
             where_query = where_query + ` and users.gender = '${inputs.gender}'`
         }
 
-        if (inputs.country){
+        if (inputs.country_id){
             where_query = where_query + ` and users.country_id = '${inputs.country_id}'`
         }
 
