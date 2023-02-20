@@ -14,6 +14,8 @@ const router = express.Router();
 router.post('/login',UserController.login)
 router.post('/register-refugee',UserController.register)
 router.post('/register-sponsor',UserController.register)
+router.post('/getAllUsers',checkAuth,UserController.getAllUsers)
+router.get('/user-detail/:id',checkAuth,UserController.detail)
 
 // skills related routes
 router.post('/create-skill',checkAuth,SkillsController.create)
