@@ -100,11 +100,11 @@ async function getAllUsers(req, res) {
                 if (role) {
                     where_query = where_query + ` and users.role = ${role} `
                 }
-            } else {
-                where_query = where_query + `where users.role = ${role} `
+            } else if (role) {
+                where_query = where_query + ` where users.role = ${role} `
             }
 
-            await knex.raw(query + where_query + `order by id desc LIMIT ${page} offset ${offset}`).then(response => {
+            await knex.raw(query + where_query + ` order by id desc LIMIT 10 offset ${offset}`).then(response => {
                 if (response[0].length > 0) {
                     list = response[0]
                 }

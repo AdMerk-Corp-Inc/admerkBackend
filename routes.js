@@ -4,17 +4,21 @@ const UserController = require('./controllers/UserController');
 const SkillsController = require('./controllers/SkillsController')
 const HobbyController = require('./controllers/HobbyController')
 const TicketController = require('./controllers/TicketController')
+const HomeController = require('./controllers/HomeController')
 
 const { checkAuth } = require('./middlewares');
 const logger = require('./logger');
 
 const router = express.Router();
 
+// home related routes
+router.post('/fetch-home-feeds',checkAuth,HomeController.HomeFeed)
+
 // user related routes
 router.post('/login',UserController.login)
 router.post('/register-refugee',UserController.register)
 router.post('/register-sponsor',UserController.register)
-router.post('/getAllUsers',checkAuth,UserController.getAllUsers)
+router.get('/getAllUsers',checkAuth,UserController.getAllUsers)
 router.get('/user-detail/:id',checkAuth,UserController.detail)
 
 // skills related routes
