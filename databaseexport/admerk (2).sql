@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 16, 2023 at 11:08 AM
+-- Generation Time: Feb 21, 2023 at 02:12 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.13
 
@@ -298,6 +298,43 @@ CREATE TABLE `hobbies` (
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `hobbies`
+--
+
+INSERT INTO `hobbies` (`id`, `name`) VALUES
+(2, 'Web Designing'),
+(3, 'sketching12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT 1 COMMENT '1=active,2=unactive',
+  `applied_count` varchar(255) DEFAULT '0',
+  `cover_picture` varchar(255) DEFAULT NULL,
+  `created_date` varchar(255) DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `updated_date` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(255) DEFAULT NULL,
+  `skills` varchar(255) DEFAULT NULL,
+  `hobby` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `attachement` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`id`, `title`, `status`, `applied_count`, `cover_picture`, `created_date`, `created_by`, `updated_date`, `updated_by`, `skills`, `hobby`, `description`, `attachement`) VALUES
+(1, 'new job12', 2, '0', 'uploads/1676900376766-Screenshot 2023-01-28 at 1.04.10 AM.png', '2023-02-20 19:12:03', '1', '2023-02-20 19:12:47', '1', NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -320,7 +357,11 @@ INSERT INTO `knex_migrations` (`id`, `name`, `batch`, `migration_time`) VALUES
 (2, '20230216064921_add_skills_table.js', 1, '2023-02-16 01:24:36'),
 (3, '20230216064934_add_hobby_table.js', 1, '2023-02-16 01:24:36'),
 (4, '20230216065238_add_country_table.js', 1, '2023-02-16 01:24:36'),
-(5, '20230216074928_add_field_user_table.js', 2, '2023-02-16 02:19:53');
+(5, '20230216074928_add_field_user_table.js', 2, '2023-02-16 02:19:53'),
+(6, '20230216105508_add_ticket_table.js', 3, '2023-02-16 08:34:11'),
+(7, '20230220125012_add_jobs_table.js', 4, '2023-02-20 07:22:31'),
+(8, '20230220132426_add_field_jobs_table.js', 5, '2023-02-20 07:55:17'),
+(9, '20230221130509_add_fields_jobs.js', 6, '2023-02-21 07:36:11');
 
 -- --------------------------------------------------------
 
@@ -350,6 +391,43 @@ CREATE TABLE `skills` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `skills`
+--
+
+INSERT INTO `skills` (`id`, `name`) VALUES
+(2, 'Web Designing'),
+(3, 'Graphic Designer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tickets`
+--
+
+CREATE TABLE `tickets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status` int(11) DEFAULT 1 COMMENT '1=open,2=closed',
+  `created_by` varchar(255) DEFAULT NULL,
+  `created_date` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_date` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`id`, `title`, `description`, `status`, `created_by`, `created_date`, `updated_by`, `updated_date`) VALUES
+(1, 'NEED HELP', 'shshdsdsd', 2, '1', '2023-02-16 19:34:13', '1', '2023-02-16 19:40:30'),
+(2, 'first ticket', 'example', 1, '8', '2023-02-18 17:48:54', NULL, NULL),
+(3, 'first ticket', 'example', 1, '8', '2023-02-18 17:49:24', NULL, NULL),
+(4, 'first ticket', 'example', 1, '8', '2023-02-18 17:49:27', NULL, NULL),
+(5, 'first ticket', 'example', 1, '8', '2023-02-18 17:50:20', NULL, NULL),
+(6, 'my system is not working', 'issue in my sys', 1, '9', '2023-02-20 19:29:57', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -388,7 +466,14 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `country_id`, `country_code`, `country_name`, `dob`, `whatsapp_number`, `graduation`, `skills`, `hobby`, `profile_photo`, `gender`, `from_usa`, `description`, `role`, `status`, `created_by`, `created_date`, `updated_by`, `updated_date`, `password`) VALUES
 (1, 'admin', 'admin@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 1, 1, NULL, NULL, NULL, NULL, '202cb962ac59075b964b07152d234b70'),
-(2, 'Jhon Doe', 'jhon@gmail.com', '1', '93', 'Afghanistan', '19/08/1997', '8562067021', 'BSC', 'software development,python', 'badminton,football', 'uploads/1676536083365-Screenshot 2023-01-31 at 1.45.19 AM.png', 'Male', 1, 'dddshdg\najhjdahdah\nadsadhad\nsdahsgdahsd', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70');
+(2, 'Jhon Doe', 'jhon@gmail.com', '1', '93', 'Afghanistan', '19/08/1997', '8562067021', 'BSC', 'software development,python', 'badminton,football', 'uploads/1676536083365-Screenshot 2023-01-31 at 1.45.19 AM.png', 'Male', 1, 'dddshdg\najhjdahdah\nadsadhad\nsdahsgdahsd', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70'),
+(5, 'web123', 'alihussainkabri52@gmail.com', '101', '91', 'India', '2023-02-16', 'Alihussain', 'Alihussain', 'Web Designing', 'Web Designing', 'uploads/1676553715484-Screenshot 2023-02-03 at 5.01.12 PM.png', 'male', 1, 'sadadasdsa', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70'),
+(6, 'web123', 'alihussainkabri521@gmail.com', '101', '91', 'India', NULL, '8562', NULL, NULL, NULL, NULL, NULL, 2, NULL, 3, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70'),
+(7, 'web123', 'dsadad@g.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Web Designing', 'Web Designing', NULL, NULL, 2, NULL, 4, 1, NULL, 2023, NULL, NULL, '25d55ad283aa400af464c76d713c07ad'),
+(8, 'idris', 'i@g.com', '101', '91', 'India', '2001-09-01', '9358473253', 'BBA, MLSU', 'Web Designing,Graphic Designer', 'Web Designing', 'uploads/1676720661301-1676361815.png', 'male', 2, 'hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  ', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70'),
+(9, 'refugee 1', 'refugee1@gmail.com', '101', '91', 'India', '1997-08-20', '8562067021', 'B.tech engineer', 'Web Designing', 'Web Designing', 'uploads/1676901495743-Screenshot 2023-02-03 at 5.01.12 PM.png', 'male', 1, 'dddjajana c\r\n\r\nsaadadas\r\ndad', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70'),
+(10, 'sponsor1', 'sponsor1@gmail.com', '101', '91', 'India', NULL, '8562067021', NULL, NULL, NULL, NULL, NULL, 2, NULL, 3, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70'),
+(11, 'volunteer1', 'volunteer@gmail.com', '101', '91', 'India', NULL, '8562067021', NULL, NULL, NULL, NULL, NULL, 2, NULL, 2, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70');
 
 --
 -- Indexes for dumped tables
@@ -407,6 +492,12 @@ ALTER TABLE `hobbies`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `knex_migrations`
 --
 ALTER TABLE `knex_migrations`
@@ -422,6 +513,12 @@ ALTER TABLE `knex_migrations_lock`
 -- Indexes for table `skills`
 --
 ALTER TABLE `skills`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -444,13 +541,19 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `hobbies`
 --
 ALTER TABLE `hobbies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `knex_migrations`
 --
 ALTER TABLE `knex_migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `knex_migrations_lock`
@@ -462,13 +565,19 @@ ALTER TABLE `knex_migrations_lock`
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

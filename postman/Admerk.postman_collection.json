@@ -509,6 +509,161 @@
 			]
 		},
 		{
+			"name": "jobs",
+			"item": [
+				{
+					"name": "create-job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "new job",
+									"type": "default"
+								},
+								{
+									"key": "cover_picture",
+									"type": "file",
+									"src": "/Users/alihussainkabri/Desktop/Screenshot 2023-01-28 at 1.04.10 AM.png"
+								},
+								{
+									"key": "skills",
+									"value": "web designing,graphic designer",
+									"type": "default"
+								},
+								{
+									"key": "hobby",
+									"value": "football",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "nice to hear",
+									"type": "default"
+								},
+								{
+									"key": "attachement",
+									"type": "file",
+									"src": "/Users/alihussainkabri/Desktop/Screenshot 2023-01-28 at 1.04.10 AM.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}create-job",
+							"host": [
+								"{{url}}create-job"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "new job",
+									"type": "default"
+								},
+								{
+									"key": "cover_picture",
+									"type": "file",
+									"src": "/Users/alihussainkabri/Desktop/Screenshot 2023-01-28 at 1.04.10 AM.png"
+								},
+								{
+									"key": "skills",
+									"value": "web designing,graphic designer",
+									"type": "default"
+								},
+								{
+									"key": "hobby",
+									"value": "football",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "nice to hear",
+									"type": "default"
+								},
+								{
+									"key": "attachement",
+									"type": "file",
+									"src": "/Users/alihussainkabri/Desktop/Screenshot 2023-01-28 at 1.04.10 AM.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}update-job/1",
+							"host": [
+								"{{url}}update-job"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Jobs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}getAllJobs",
+							"host": [
+								"{{url}}getAllJobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "job-details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}job-details/1",
+							"host": [
+								"{{url}}job-details"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}change-status/1/2",
+							"host": [
+								"{{url}}change-status"
+							],
+							"path": [
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "country-list",
 			"request": {
 				"method": "GET",
@@ -517,6 +672,80 @@
 					"raw": "{{url}}country-list",
 					"host": [
 						"{{url}}country-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-home-feeds",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "skill",
+							"value": "",
+							"type": "default"
+						},
+						{
+							"key": "hobby",
+							"value": "",
+							"type": "default"
+						},
+						{
+							"key": "gender",
+							"value": "male",
+							"type": "default"
+						},
+						{
+							"key": "country_id",
+							"value": "101",
+							"type": "default"
+						},
+						{
+							"key": "search",
+							"value": "",
+							"type": "default"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}fetch-home-feeds",
+					"host": [
+						"{{url}}fetch-home-feeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}getAllUsers?page=1",
+					"host": [
+						"{{url}}getAllUsers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "role",
+							"value": "4",
+							"disabled": true
+						}
 					]
 				}
 			},
