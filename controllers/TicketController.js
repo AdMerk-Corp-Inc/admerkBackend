@@ -80,6 +80,8 @@ async function detail(req,res){
                 }
             })
         }
+        status = 200
+        message = "Data fetched"
     } catch (error) {
         status = 500
         message = error.message
