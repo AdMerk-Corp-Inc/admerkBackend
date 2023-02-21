@@ -8,3 +8,7 @@
 2023-02-21T07:05:12.922Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
 2023-02-21T07:06:59.904Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
 2023-02-21T07:06:59.931Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-21T14:12:23.452Z  [ERROR  ] - select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets order by tickets.id desc - ER_BAD_FIELD_ERROR: Unknown column 'users.name' in 'field list'
+2023-02-21T14:12:23.458Z  [ERROR  ] - select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets order by tickets.id desc - ER_BAD_FIELD_ERROR: Unknown column 'users.name' in 'field list'
+2023-02-21T14:13:04.931Z  [ERROR  ] - select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets order by tickets.id desc - ER_BAD_FIELD_ERROR: Unknown column 'users.name' in 'field list'
+2023-02-21T14:13:04.937Z  [ERROR  ] - select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets order by tickets.id desc - ER_BAD_FIELD_ERROR: Unknown column 'users.name' in 'field list'

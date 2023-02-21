@@ -31,20 +31,22 @@ async function getAll(req,res){
     try {
         let query = ''
         if (req.query.status){
-            query = `select * from tickets where status = ${req.query.status}`
+            query = `select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets inner join users on users.id=tickets.created_by where tickets.status = ${req.query.status}`
 
             if (req.user_data.role > 2 ){
-                query = query + ` and created_by = '${req.user_data.id}'`
+                query = query + ` and tickets.created_by = '${req.user_data.id}'`
             }
         }else{
-            query = `select * from tickets`
+            query = `select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets inner join users on users.id=tickets.created_by`
 
             if (req.user_data.role > 2 ){
-                query = query + ` where created_by = '${req.user_data.id}'`
+                query = query + ` where tickets.created_by = '${req.user_data.id}'`
             }
         }
 
-        await knex.raw(query + ' order by id desc').then(response => {
+        console.log(query)
+
+        await knex.raw(query + ' order by tickets.id desc').then(response => {
             if (response[0].length > 0){
                 list = response[0]
             }

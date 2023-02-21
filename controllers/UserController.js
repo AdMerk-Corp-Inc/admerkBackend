@@ -2,6 +2,7 @@ const logger = require("../logger");
 const MD5 = require('MD5')
 const jwt = require("jsonwebtoken");
 const HELPERS = require('../helpers')
+var random = require('random-string-alphanumeric-generator');
 
 async function register(req, res) {
     let status = 500
@@ -150,9 +151,39 @@ async function detail(req,res){
     return res.json({status,message,detail})
 }
 
+async function resetPassword(req,res){
+    let status = 500
+    let message = "Oops something went wrong!"
+    let inputs = req.body;
+
+    try {
+        let new_password = random.randomAlphanumeric(6, "lowercase")
+
+        await knex('users').where("email",inputs.email).update({
+            password : MD5(new_password)
+        }).then(async response => {
+            await HELPERS.sendMail(inputs.email,"ForgotPassword",{
+                username : inputs.email,
+                password : new_password
+            })
+        })
+
+        status = 200
+        message = "Password reset link sent successfully!"
+
+    } catch (error) {
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+
+    return res.json({status,message})
+}
+
 module.exports = {
     login,
     register,
     getAllUsers,
-    detail
+    detail,
+    resetPassword
 }
