@@ -4,3 +4,7 @@
 2023-02-21T06:50:18.943Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
 2023-02-21T07:04:03.826Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
 2023-02-21T07:04:03.837Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-21T07:05:12.876Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-21T07:05:12.922Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-21T07:06:59.904Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-21T07:06:59.931Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
