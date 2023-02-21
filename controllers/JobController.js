@@ -1,22 +1,31 @@
 const { dateTime } = require("../helpers");
 const logger = require("../logger");
 
-async function create(req,res){
+async function create(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
     let inputs = req.body;
 
     try {
-        if (req.user_data.role < 3){
+        if (req.user_data.role < 3) {
             inputs["created_by"] = req.user_data.id;
             inputs["created_date"] = dateTime();
-            inputs["cover_picture"] = "uploads/" + req.files[0].filename
+
+            if (req.files && req.files.length > 0) {
+                for (let i = 0; i < req.files.length; i++) {
+                    if (req.files[i].fieldname == "") {
+                        inputs["attachement"] = "uploads/" + req.files[0].filename
+                    } else {
+                        inputs["cover_picture"] = "uploads/" + req.files[0].filename
+                    }
+                }
+            }
 
             await knex("jobs").insert(inputs)
 
             status = 200
             message = "Job Created successfully!"
-        }else{
+        } else {
             status = 300
             message = "You are not authorized to perform this action"
         }
@@ -26,25 +35,25 @@ async function create(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message})
+    return res.json({ status, message })
 }
 
-async function getAllJobs(req,res){
+async function getAllJobs(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
     let list = []
     try {
         let query = 'select * from jobs';
-        if (req.user_data.role > 2){
+        if (req.user_data.role > 2) {
             query = query + ` where status = 1`
-        }else{
-            if (req.query.status){
+        } else {
+            if (req.query.status) {
                 query = query + ` where status = ${req.query.status}`
             }
         }
 
-        await knex.raw(query + `order by id desc`).then(response =>{
-            if (response[0].length > 0){
+        await knex.raw(query + ` order by id desc`).then(response => {
+            if (response[0].length > 0) {
                 list = response[0]
             }
         })
@@ -57,21 +66,21 @@ async function getAllJobs(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message,list})
+    return res.json({ status, message, list })
 }
 
-async function getDetail(req,res){
+async function getDetail(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
     let detail = {};
 
     try {
-        await knex("jobs").where("id",req.params.id).then(response => {
-            if (response.length > 0){
+        await knex("jobs").where("id", req.params.id).then(response => {
+            if (response.length > 0) {
                 detail = response[0];
                 status = 200
                 message = "Data fetched successfully!"
-            }else{
+            } else {
                 status = 300
                 message = "No record found"
             }
@@ -82,30 +91,36 @@ async function getDetail(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message,detail})
+    return res.json({ status, message, detail })
 
 }
 
 
-async function update(req,res){
+async function update(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
     let inputs = req.body;
 
     try {
-        if (req.user_data.role < 3){
+        if (req.user_data.role < 3) {
             inputs["created_by"] = req.user_data.id;
             inputs["created_date"] = dateTime();
-            
-            if (req.files && req.files.length > 0){
-                inputs["cover_picture"] = "uploads/" + req.files[0].filename
+
+            if (req.files && req.files.length > 0) {
+                for (let i = 0; i < req.files.length; i++) {
+                    if (req.files[i].fieldname == "") {
+                        inputs["attachement"] = "uploads/" + req.files[0].filename
+                    } else {
+                        inputs["cover_picture"] = "uploads/" + req.files[0].filename
+                    }
+                }
             }
 
-            await knex("jobs").where("id",req.params.id).update(inputs)
+            await knex("jobs").where("id", req.params.id).update(inputs)
 
             status = 200
             message = "Job updated successfully!"
-        }else{
+        } else {
             status = 300
             message = "You are not authorized to perform this action"
         }
@@ -115,24 +130,24 @@ async function update(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message})
+    return res.json({ status, message })
 }
 
-async function changeStatus(req,res){
+async function changeStatus(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
 
     try {
-        if (req.user_data.role < 3){
-            await knex("jobs").where("id",req.params.id).update({
-                status : req.params.status,
-                updated_by : req.user_data.id,
-                updated_date : dateTime()
+        if (req.user_data.role < 3) {
+            await knex("jobs").where("id", req.params.id).update({
+                status: req.params.status,
+                updated_by: req.user_data.id,
+                updated_date: dateTime()
             })
 
             status = 200
             message = "Job status changed successfully!"
-        }else{
+        } else {
             status = 300
             message = "You are not authorized to perform this action"
         }
@@ -142,7 +157,7 @@ async function changeStatus(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message})
+    return res.json({ status, message })
 }
 
 
