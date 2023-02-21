@@ -3,3 +3,11 @@
 2023-02-20T08:14:36.285Z  [ERROR  ] - select * from users where users.role = undefined order by id desc LIMIT undefined offset NaN - ER_SP_UNDECLARED_VAR: Undeclared variable: undefined
 2023-02-20T08:14:49.827Z  [ERROR  ] - select * from users where users.role = undefined order by id desc LIMIT 1 offset 0 - ER_BAD_FIELD_ERROR: Unknown column 'undefined' in 'where clause'
 2023-02-20T08:15:31.146Z  [ERROR  ] - select * from usersorder by id desc LIMIT 1 offset 0 - ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'by id desc LIMIT 1 offset 0' at line 1
+2023-02-20T10:27:01.555Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-20T10:27:01.587Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-20T10:54:09.169Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-20T10:54:09.214Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-20T10:54:15.090Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-20T10:54:15.188Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-20T10:54:18.355Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
+2023-02-20T10:54:18.404Z  [ERROR  ] - select * from tickets order by id desc - ER_NO_SUCH_TABLE: Table 'admerk.tickets' doesn't exist
