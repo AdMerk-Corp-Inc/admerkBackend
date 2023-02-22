@@ -180,10 +180,31 @@ async function resetPassword(req,res){
     return res.json({status,message})
 }
 
+async function changePassword(req,res){
+    let status = 500
+    let message = "Oops something went wrong!"
+
+    try {
+        await knex('users').where('id',req.user_data.id).update({
+            password : MD5(req.body.password)
+        })
+
+        status = 200
+        message = "Password updated successfully!"
+    } catch (error) {
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+
+    return res.json({status,message})
+}
+
 module.exports = {
     login,
     register,
     getAllUsers,
     detail,
-    resetPassword
+    resetPassword,
+    changePassword
 }
