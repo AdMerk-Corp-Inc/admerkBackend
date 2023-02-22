@@ -160,11 +160,41 @@ async function changeStatus(req, res) {
     return res.json({ status, message })
 }
 
+async function JobApplicantList(req,res){
+    let status = 500
+    let message = "Oops something went wrong!"
+    let list = [];
+
+    try {
+        if (req.user_data.role < 2){
+            let query = `select users.name,users.email,users.country_code,users.country_name,users.whatsapp_number,users.id as user_id,jobApplications.resume,jobApplications.apply_date from jobApplications inner join users on users.id = jobApplications.user_id where jobApplications.job_id = ${req.params.id} order by jobApplications.id desc`
+            await knex.raw(query).then(response => {
+                if (response[0].length > 0){
+                    list = response[0]
+                }
+            })
+
+            status = 200
+            message = "List fetched successfully!"
+        }else{
+            status = 300
+            message = "You are not authorized to perform this action"
+        } 
+    } catch (error) {
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+
+    return res.json({status,message,list})
+}
+
 
 module.exports = {
     create,
     getAllJobs,
     getDetail,
     update,
-    changeStatus
+    changeStatus,
+    JobApplicantList
 }

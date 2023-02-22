@@ -669,13 +669,57 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}change-status/1/2",
+							"raw": "{{url}}change-job-status/1/2",
 							"host": [
-								"{{url}}change-status"
+								"{{url}}change-job-status"
 							],
 							"path": [
 								"1",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apply-job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "resume",
+									"type": "file",
+									"src": "/Users/alihussainkabri/Desktop/Simulator Screen Shot - iPhone 14 - 2023-02-21 at 16.35.42.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}apply-job/1",
+							"host": [
+								"{{url}}apply-job"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "job-applicant-list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}job-applicant-list/1",
+							"host": [
+								"{{url}}job-applicant-list"
+							],
+							"path": [
+								"1"
 							]
 						}
 					},
@@ -741,6 +785,55 @@
 					"raw": "{{url}}fetch-home-feeds",
 					"host": [
 						"{{url}}fetch-home-feeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-home-jobs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "skill",
+							"value": "",
+							"type": "default"
+						},
+						{
+							"key": "hobby",
+							"value": "",
+							"type": "default"
+						},
+						{
+							"key": "gender",
+							"value": "male",
+							"type": "default"
+						},
+						{
+							"key": "country_id",
+							"value": "101",
+							"type": "default"
+						},
+						{
+							"key": "search",
+							"value": "",
+							"type": "default"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}fetch-home-jobs",
+					"host": [
+						"{{url}}fetch-home-jobs"
 					]
 				}
 			},

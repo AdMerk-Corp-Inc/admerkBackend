@@ -6,6 +6,7 @@ const HobbyController = require('./controllers/HobbyController')
 const TicketController = require('./controllers/TicketController')
 const HomeController = require('./controllers/HomeController')
 const JobController = require('./controllers/JobController')
+const ApplyJobController = require('./controllers/ApplyJobController')
 
 const { checkAuth } = require('./middlewares');
 const logger = require('./logger');
@@ -50,6 +51,8 @@ router.get('/getAllJobs',checkAuth,JobController.getAllJobs)
 router.get('/job-details/:id',checkAuth,JobController.getDetail)
 router.post('/update-job/:id',checkAuth,JobController.update)
 router.get('/change-job-status/:id/:status',checkAuth,JobController.changeStatus)
+router.get('/job-applicant-list/:id',checkAuth,JobController.JobApplicantList)
+router.post('/apply-job/:id',checkAuth,ApplyJobController.apply)
 
 // country routes
 router.get('/country-list',async (req,res) => {

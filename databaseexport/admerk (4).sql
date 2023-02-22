@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 21, 2023 at 03:55 PM
+-- Generation Time: Feb 22, 2023 at 11:41 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.13
 
@@ -309,6 +309,20 @@ INSERT INTO `hobbies` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jobApplications`
+--
+
+CREATE TABLE `jobApplications` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `job_id` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `resume` varchar(255) DEFAULT NULL,
+  `apply_date` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jobs`
 --
 
@@ -335,7 +349,9 @@ CREATE TABLE `jobs` (
 --
 
 INSERT INTO `jobs` (`id`, `title`, `status`, `applied_count`, `cover_picture`, `created_date`, `created_by`, `updated_date`, `updated_by`, `skills`, `hobby`, `description`, `attachement`, `country_id`, `country_name`) VALUES
-(1, 'new job12', 2, '0', 'uploads/1676900376766-Screenshot 2023-01-28 at 1.04.10 AM.png', '2023-02-20 19:12:03', '1', '2023-02-20 19:12:47', '1', NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 'new job12', 2, '0', 'uploads/1676900376766-Screenshot 2023-01-28 at 1.04.10 AM.png', '2023-02-20 19:12:03', '1', '2023-02-20 19:12:47', '1', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'software developer', 1, '0', 'uploads/1677058739508-Screenshot 2023-01-31 at 1.36.19 AM.png', '2023-02-22 15:08:59', '1', '2023-02-22 15:17:08', '1', 'sketching12', 'sketching12', 'dsdasas', 'uploads/1677058739508-Screenshot 2023-01-31 at 1.36.19 AM.png', '101', 'India'),
+(3, 'dsdsd', 1, '0', 'uploads/1677059704229-Screenshot 2023-02-01 at 12.42.02 PM.png', '2023-02-22 15:25:04', '1', NULL, NULL, 'sketching12', 'sketching12', 'sdsdsad', NULL, '1', 'Afghanistan');
 
 -- --------------------------------------------------------
 
@@ -364,7 +380,8 @@ INSERT INTO `knex_migrations` (`id`, `name`, `batch`, `migration_time`) VALUES
 (7, '20230220125012_add_jobs_table.js', 4, '2023-02-20 07:22:31'),
 (8, '20230220132426_add_field_jobs_table.js', 5, '2023-02-20 07:55:17'),
 (9, '20230221130509_add_fields_jobs.js', 6, '2023-02-21 07:36:11'),
-(10, '20230221133400_add_fields_jobs.js', 7, '2023-02-21 08:04:49');
+(10, '20230221133400_add_fields_jobs.js', 7, '2023-02-21 08:04:49'),
+(11, '20230222101402_add_job_apply_table.js', 8, '2023-02-22 05:11:21');
 
 -- --------------------------------------------------------
 
@@ -495,6 +512,12 @@ ALTER TABLE `hobbies`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `jobApplications`
+--
+ALTER TABLE `jobApplications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -547,16 +570,22 @@ ALTER TABLE `hobbies`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `jobApplications`
+--
+ALTER TABLE `jobApplications`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `knex_migrations`
 --
 ALTER TABLE `knex_migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `knex_migrations_lock`
