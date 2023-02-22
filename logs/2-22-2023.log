@@ -1,0 +1,2 @@
+2023-02-22T10:03:32.314Z  [ERROR  ] - select * from jobs where (jobs.status = 1) and users.country_id = '101'order by id desc LIMIT 20 offset 0 - ER_BAD_FIELD_ERROR: Unknown column 'users.country_id' in 'where clause'
+2023-02-22T10:03:56.461Z  [ERROR  ] - select * from jobs where (jobs.status = 1) and hobby.country_id = '101'order by id desc LIMIT 20 offset 0 - ER_BAD_FIELD_ERROR: Unknown column 'hobby.country_id' in 'where clause'

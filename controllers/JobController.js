@@ -13,7 +13,7 @@ async function create(req, res) {
 
             if (req.files && req.files.length > 0) {
                 for (let i = 0; i < req.files.length; i++) {
-                    if (req.files[i].fieldname == "") {
+                    if (req.files[i].fieldname == "attachement") {
                         inputs["attachement"] = "uploads/" + req.files[0].filename
                     } else {
                         inputs["cover_picture"] = "uploads/" + req.files[0].filename
@@ -108,7 +108,7 @@ async function update(req, res) {
 
             if (req.files && req.files.length > 0) {
                 for (let i = 0; i < req.files.length; i++) {
-                    if (req.files[i].fieldname == "") {
+                    if (req.files[i].fieldname == "attachement") {
                         inputs["attachement"] = "uploads/" + req.files[0].filename
                     } else {
                         inputs["cover_picture"] = "uploads/" + req.files[0].filename

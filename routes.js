@@ -14,6 +14,7 @@ const router = express.Router();
 
 // home related routes
 router.post('/fetch-home-feeds',checkAuth,HomeController.HomeFeed)
+router.post('/fetch-home-jobs',checkAuth,HomeController.HomeFeedJobs)
 
 // user related routes
 router.post('/login',UserController.login)
@@ -48,7 +49,7 @@ router.post('/create-job',checkAuth,JobController.create)
 router.get('/getAllJobs',checkAuth,JobController.getAllJobs)
 router.get('/job-details/:id',checkAuth,JobController.getDetail)
 router.post('/update-job/:id',checkAuth,JobController.update)
-router.get('/change-status/:id/:status',checkAuth,JobController.changeStatus)
+router.get('/change-job-status/:id/:status',checkAuth,JobController.changeStatus)
 
 // country routes
 router.get('/country-list',async (req,res) => {
