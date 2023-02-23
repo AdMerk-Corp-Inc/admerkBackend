@@ -7,6 +7,7 @@ const TicketController = require('./controllers/TicketController')
 const HomeController = require('./controllers/HomeController')
 const JobController = require('./controllers/JobController')
 const ApplyJobController = require('./controllers/ApplyJobController')
+const DashboardController = require('./controllers/DashboardController')
 
 const { checkAuth } = require('./middlewares');
 const logger = require('./logger');
@@ -21,6 +22,8 @@ router.post('/fetch-home-jobs',checkAuth,HomeController.HomeFeedJobs)
 router.post('/login',UserController.login)
 router.post('/register-refugee',UserController.register)
 router.post('/register-sponsor',UserController.register)
+router.get('/verifyemail/:token',UserController.verifyEmail)
+router.get('/resendVerification/:email',UserController.resendVerification)
 router.get('/getAllUsers',checkAuth,UserController.getAllUsers)
 router.get('/user-detail/:id',checkAuth,UserController.detail)
 router.post('/resetPassword',UserController.resetPassword)
@@ -54,6 +57,9 @@ router.post('/update-job/:id',checkAuth,JobController.update)
 router.get('/change-job-status/:id/:status',checkAuth,JobController.changeStatus)
 router.get('/job-applicant-list/:id',checkAuth,JobController.JobApplicantList)
 router.post('/apply-job/:id',checkAuth,ApplyJobController.apply)
+
+// dashboard routes
+router.get('/dashboard-count',checkAuth,DashboardController.getCount)
 
 // country routes
 router.get('/country-list',async (req,res) => {

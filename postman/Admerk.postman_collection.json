@@ -194,6 +194,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "verify email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}verifyemail/udsus1:12",
+							"host": [
+								"{{url}}verifyemail"
+							],
+							"path": [
+								"udsus1:12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Email Verification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}resendVerification/alihussainkabri52@gmail.com",
+							"host": [
+								"{{url}}resendVerification"
+							],
+							"path": [
+								"alihussainkabri52@gmail.com"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -720,6 +754,25 @@
 							],
 							"path": [
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dashboard Volunteer Admin",
+			"item": [
+				{
+					"name": "dashboard count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}dashboard-count",
+							"host": [
+								"{{url}}dashboard-count"
 							]
 						}
 					},

@@ -52,8 +52,70 @@ function dateTime() {
     return moment().tz(process.env.TIME_ZONE).format('YYYY-MM-DD HH:mm:ss');
 }
 
+const react_url = "http://localhost:3000/"
+
+let dashboard_count_schema = [
+    {
+        variable: 'role',
+        table_name: 'users',
+        actions: [
+            {
+                taker: 4,
+                update_on: 'refugee'
+            },
+            {
+                taker: 3,
+                update_on: 'sponsor'
+            },
+            {
+                taker: 2,
+                update_on: 'volunteer'
+            }
+        ]
+    },
+    {
+        variable: 'status',
+        table_name: 'jobs',
+        actions: [
+            {
+                taker: 'all',
+                update_on: 'jobs'
+            },
+            {
+                taker: 1,
+                update_on: 'open_jobs'
+            },
+            {
+                taker: 2,
+                update_on: 'closed_jobs'
+            }
+        ]
+    },
+    {
+        variable: 'status',
+        table_name: 'tickets',
+        actions: [
+            {
+                taker: 'all',
+                update_on: 'tickets'
+            },
+            {
+                taker: 1,
+                update_on: 'open_tickets'
+            },
+            {
+                taker: 2,
+                update_on: 'close_tickets'
+            }
+        ]
+    }
+
+]
+
 module.exports = {
     current_date,
     dateTime,
-    sendMail
+    sendMail,
+    react_url,
+    dashboard_count_schema
 }

@@ -24,20 +24,21 @@ async function register(req, res) {
 
                 await knex("users").insert(inputs, "id").then(async user_response => {
                     if (user_response[0]) {
-                        await knex("users").where("id", user_response[0]).then(user_output => {
-                            if (user_output.length > 0) {
-                                user_data = user_output[0]
-                                user_data["token"] = jwt.sign(
-                                    { user_data: user_data },
-                                    process.env.SECRET_KEY
-                                );
-                            }
+                        let new_password = random.randomAlphanumeric(6, "lowercase")
+                        new_password = new_password + ":" + user_response[0]
+                        await knex("users").where("id", user_response[0]).update({
+                            email_code: new_password
+                        }).then(async response => {
+                            await HELPERS.sendMail(inputs.email, 'verifyemail', {
+                                username: inputs.name,
+                                verifyLink: HELPERS.react_url + `verifyemail?token=${new_password}`
+                            }, "Verify Your Account")
                         })
                     }
                 })
 
                 status = 200
-                message = "User created successfully!"
+                message = "We have sent an email to verify your account. Check your email to verify!"
             }
         })
     } catch (error) {
@@ -59,7 +60,30 @@ async function login(req, res) {
         await knex('users').where('email', inputs.email).where('password', MD5(inputs.password)).then(response => {
             if (response.length > 0) {
                 user_data = response[0];
-                if (user_data.status == 1) {
+                let flag_to_go = 0
+                if (user_data.role > 2) {
+                    if (user_data.status != 1) {
+                        status = 300
+                        message = "Account is not active"
+                        flag_to_go = 1
+                    }
+
+                    if (user_data.email_verified != 1) {
+                        status = 301
+                        message = "Account is not verified yet"
+                        flag_to_go = 1
+                    }
+                } else if (user_data.role == 2) {
+                    if (user_data.status != 1) {
+                        status = 300
+                        message = "Account is not active"
+                        flag_to_go = 1
+                    }
+                } else if (user_data.role == 1) {
+                    flag_to_go = 0;
+                }
+
+                if (flag_to_go == 0) {
                     user_data["token"] = jwt.sign(
                         { user_data: user_data },
                         process.env.SECRET_KEY
@@ -67,9 +91,6 @@ async function login(req, res) {
 
                     status = 200
                     message = "User logged in successfully!"
-                } else {
-                    status = 300
-                    message = "Account is not active"
                 }
             } else {
                 status = 300
@@ -123,21 +144,21 @@ async function getAllUsers(req, res) {
         logger.error(error)
     }
 
-    return res.json({ status, message,list })
+    return res.json({ status, message, list })
 }
 
-async function detail(req,res){
+async function detail(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
     let detail = {}
 
     try {
-        await knex('users').where("id",req.params.id).then(response => {
-            if (response.length > 0){
+        await knex('users').where("id", req.params.id).then(response => {
+            if (response.length > 0) {
                 detail = response[0]
                 status = 200
                 message = "Data fetched successfully!"
-            }else{
+            } else {
                 status = 300
                 message = "User data found"
             }
@@ -148,10 +169,10 @@ async function detail(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message,detail})
+    return res.json({ status, message, detail })
 }
 
-async function resetPassword(req,res){
+async function resetPassword(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
     let inputs = req.body;
@@ -159,12 +180,13 @@ async function resetPassword(req,res){
     try {
         let new_password = random.randomAlphanumeric(6, "lowercase")
 
-        await knex('users').where("email",inputs.email).update({
-            password : MD5(new_password)
+        await knex('users').where("email", inputs.email).update({
+            password: MD5(new_password)
         }).then(async response => {
-            await HELPERS.sendMail(inputs.email,"ForgotPassword",{
-                username : inputs.email,
-                password : new_password
+            await HELPERS.sendMail(inputs.email, "ForgotPassword", {
+                username: inputs.email,
+                password: new_password,
+                url: HELPERS.react_url + "login"
             })
         })
 
@@ -177,16 +199,16 @@ async function resetPassword(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message})
+    return res.json({ status, message })
 }
 
-async function changePassword(req,res){
+async function changePassword(req, res) {
     let status = 500
     let message = "Oops something went wrong!"
 
     try {
-        await knex('users').where('id',req.user_data.id).update({
-            password : MD5(req.body.password)
+        await knex('users').where('id', req.user_data.id).update({
+            password: MD5(req.body.password)
         })
 
         status = 200
@@ -197,7 +219,73 @@ async function changePassword(req,res){
         logger.error(error)
     }
 
-    return res.json({status,message})
+    return res.json({ status, message })
+}
+
+async function verifyEmail(req, res) {
+    let status = 500
+    let message = "Oops something went wrong!"
+    let user_data = {};
+
+    try {
+        let forgot_password_token = req.params.token.split(":")
+
+        await knex('users').where("id", forgot_password_token[1]).where("email_code", req.params.token).then(async response => {
+            if (response.length > 0) {
+                await knex('users').where("id", response[0].id).update({
+                    email_verified: 1,
+                    email_code: ''
+                })
+
+                status = 200
+                message = "Your account is verified please log in now"
+            } else {
+                status = 300
+                message = "Unable to verify email"
+            }
+        })
+    } catch (error) {
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+
+    return res.json({ status, message, user_data })
+}
+
+async function resendVerification(req, res) {
+    let status = 500
+    let message = "Oops something went wrong!"
+
+    try {
+        await knex('users').where('email', req.params.email).then(async email_response => {
+            if (email_response.length > 0) {
+                let new_password = random.randomAlphanumeric(6, "lowercase")
+                new_password = new_password + ":" + email_response[0].id
+                await knex("users").where("id", email_response[0].id).update({
+                    email_code: new_password,
+                    email_verified : 2
+                }).then(async response => {
+                    await HELPERS.sendMail(req.params.email, 'verifyemail', {
+                        username: email_response[0].name,
+                        verifyLink: HELPERS.react_url + `verifyemail?token=${new_password}`
+                    }, "Verify Your Account")
+                })
+
+                status = 200
+                message = "Email verification has been sent"
+            } else {
+                status = 300
+                message = "No email found"
+            }
+        })
+    } catch (error) {
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+
+    return res.json({ status, message })
 }
 
 module.exports = {
@@ -206,5 +294,7 @@ module.exports = {
     getAllUsers,
     detail,
     resetPassword,
-    changePassword
+    changePassword,
+    verifyEmail,
+    resendVerification
 }
