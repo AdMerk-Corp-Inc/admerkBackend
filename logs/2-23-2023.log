@@ -1,2 +1,4 @@
 2023-02-23T06:01:53.491Z  [ERROR  ] - select * from `user` where `id` = '12' and `email_code` = '0pesjx' - ER_NO_SUCH_TABLE: Table 'admerk.user' doesn't exist
 2023-02-23T06:11:19.925Z  [ERROR  ] - inputs is not defined
+2023-02-23T06:48:45.850Z  [ERROR  ] - Undefined binding(s) detected when compiling SELECT. Undefined column(s): [id] query: select * from `users` where `id` = ? and `email_code` = ?
+2023-02-23T06:48:45.853Z  [ERROR  ] - Undefined binding(s) detected when compiling SELECT. Undefined column(s): [id] query: select * from `users` where `id` = ? and `email_code` = ?

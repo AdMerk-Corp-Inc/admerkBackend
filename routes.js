@@ -28,6 +28,7 @@ router.get('/getAllUsers',checkAuth,UserController.getAllUsers)
 router.get('/user-detail/:id',checkAuth,UserController.detail)
 router.post('/resetPassword',UserController.resetPassword)
 router.post('/change-password',checkAuth,UserController.changePassword)
+router.get('/change-user-status/:id/:status',checkAuth,UserController.changeStatus)
 
 // skills related routes
 router.post('/create-skill',checkAuth,SkillsController.create)

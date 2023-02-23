@@ -228,6 +228,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "change user status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}change-user-status/13/1",
+							"host": [
+								"{{url}}change-user-status"
+							],
+							"path": [
+								"13",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

@@ -288,6 +288,33 @@ async function resendVerification(req, res) {
     return res.json({ status, message })
 }
 
+async function changeStatus(req,res){
+    let status = 500
+    let message = "Oops something went wrong!"
+    
+    try {
+        if (req.user_data.role < 3){
+            await knex('users').where('id',req.params.id).update({
+                status : req.params.status,
+                updated_by : req.user_data.id,
+                updated_date : HELPERS.dateTime()
+            })
+
+            status = 200
+            message = "Data updated successfully!"
+        }else{
+            status = 300
+            message = "You are not authorized to perform this action"
+        }
+    } catch (error) {
+        status = 500
+        message = error.message;
+        logger.error(error)
+    }
+
+    return res.json({status,message})
+}
+
 module.exports = {
     login,
     register,
@@ -296,5 +323,6 @@ module.exports = {
     resetPassword,
     changePassword,
     verifyEmail,
-    resendVerification
+    resendVerification,
+    changeStatus
 }
