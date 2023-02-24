@@ -20,9 +20,9 @@ async function create(req, res) {
             if (req.files && req.files.length > 0) {
                 for (let i = 0; i < req.files.length; i++) {
                     if (req.files[i].fieldname == "attachement") {
-                        inputs["attachement"] = "uploads/" + req.files[0].filename
+                        inputs["attachement"] = "uploads/" + req.files[i].filename
                     } else {
-                        inputs["cover_picture"] = "uploads/" + req.files[0].filename
+                        inputs["cover_picture"] = "uploads/" + req.files[i].filename
                     }
                 }
             }
@@ -51,7 +51,11 @@ async function getAllJobs(req, res) {
     try {
         let query = 'select * from jobs';
         if (req.user_data.role == 3) {
-            query = query + ` where status = ${req.query.status} and created_by = ${req.user_data.id}`
+            if (req.query.status) {
+                query = query + ` where status = ${req.query.status} and created_by = ${req.user_data.id}`
+            }else{
+                query = query + ` where created_by = ${req.user_data.id}`
+            }
         } else if (req.user_data.role < 3) {
             if (req.query.status) {
                 query = query + ` where status = ${req.query.status}`
@@ -117,9 +121,9 @@ async function update(req, res) {
             if (req.files && req.files.length > 0) {
                 for (let i = 0; i < req.files.length; i++) {
                     if (req.files[i].fieldname == "attachement") {
-                        inputs["attachement"] = "uploads/" + req.files[0].filename
+                        inputs["attachement"] = "uploads/" + req.files[i].filename
                     } else {
-                        inputs["cover_picture"] = "uploads/" + req.files[0].filename
+                        inputs["cover_picture"] = "uploads/" + req.files[i].filename
                     }
                 }
             }

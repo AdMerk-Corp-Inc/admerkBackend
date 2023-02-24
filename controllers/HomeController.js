@@ -76,6 +76,10 @@ async function HomeFeedJobs(req,res){
             where_query = where_query + ` and (jobs.title LIKE '%${inputs.search}%')`
         }
 
+        if (inputs.work_type){
+            where_query = where_query + ` and jobs.work_type = '${inputs.work_type}'`
+        }
+
 
         await knex.raw(query + where_query + `order by RAND() LIMIT 20 offset ${offset}` ).then(response => {
             if (response[0].length > 0){
