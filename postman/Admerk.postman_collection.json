@@ -610,6 +610,11 @@
 									"key": "country_name",
 									"value": "india",
 									"type": "default"
+								},
+								{
+									"key": "work_type",
+									"value": "Both",
+									"type": "default"
 								}
 							]
 						},
@@ -668,6 +673,11 @@
 								{
 									"key": "country_name",
 									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "work_type",
+									"value": "Both",
 									"type": "default"
 								}
 							]

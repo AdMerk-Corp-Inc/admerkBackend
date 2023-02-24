@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2023 at 07:38 AM
+-- Generation Time: Feb 24, 2023 at 06:43 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.13
 
@@ -325,7 +325,8 @@ CREATE TABLE `jobApplications` (
 --
 
 INSERT INTO `jobApplications` (`id`, `job_id`, `user_id`, `resume`, `apply_date`) VALUES
-(1, '3', '9', 'uploads/1677081991297-quotationBudgetSoftware.pdf', '2023-02-22 21:36:31');
+(1, '3', '9', 'uploads/1677081991297-quotationBudgetSoftware.pdf', '2023-02-22 21:36:31'),
+(2, '4', '9', 'uploads/1677153743345-Marcamor_Pitchbook Final.pdf', '2023-02-23 17:32:23');
 
 -- --------------------------------------------------------
 
@@ -348,17 +349,20 @@ CREATE TABLE `jobs` (
   `description` text DEFAULT NULL,
   `attachement` varchar(255) DEFAULT NULL,
   `country_id` varchar(255) DEFAULT NULL,
-  `country_name` varchar(255) DEFAULT NULL
+  `country_name` varchar(255) DEFAULT NULL,
+  `work_type` varchar(255) DEFAULT 'Both' COMMENT 'Both,Remote,On Site',
+  `is_admin` int(11) DEFAULT 2 COMMENT '1=yes,2=No'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`id`, `title`, `status`, `applied_count`, `cover_picture`, `created_date`, `created_by`, `updated_date`, `updated_by`, `skills`, `hobby`, `description`, `attachement`, `country_id`, `country_name`) VALUES
-(1, 'new job12', 2, '0', 'uploads/1676900376766-Screenshot 2023-01-28 at 1.04.10 AM.png', '2023-02-20 19:12:03', '1', '2023-02-20 19:12:47', '1', NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'software developer', 1, '0', 'uploads/1677058739508-Screenshot 2023-01-31 at 1.36.19 AM.png', '2023-02-22 15:08:59', '1', '2023-02-22 15:17:08', '1', 'sketching12', 'sketching12', 'dsdasas', 'uploads/1677058739508-Screenshot 2023-01-31 at 1.36.19 AM.png', '101', 'India'),
-(3, 'dsdsd', 1, '1', 'uploads/1677059704229-Screenshot 2023-02-01 at 12.42.02 PM.png', '2023-02-22 15:25:04', '1', NULL, NULL, 'sketching12', 'sketching12', 'sdsdsad', NULL, '1', 'Afghanistan');
+INSERT INTO `jobs` (`id`, `title`, `status`, `applied_count`, `cover_picture`, `created_date`, `created_by`, `updated_date`, `updated_by`, `skills`, `hobby`, `description`, `attachement`, `country_id`, `country_name`, `work_type`, `is_admin`) VALUES
+(1, 'new job12', 2, '0', 'uploads/1676900376766-Screenshot 2023-01-28 at 1.04.10 AM.png', '2023-02-20 19:12:03', '1', '2023-02-20 19:12:47', '1', NULL, NULL, NULL, NULL, NULL, NULL, 'Both', 2),
+(2, 'software developer', 1, '0', 'uploads/1677058739508-Screenshot 2023-01-31 at 1.36.19 AM.png', '2023-02-22 15:08:59', '1', '2023-02-22 15:17:08', '1', 'sketching12', 'sketching12', 'dsdasas', 'uploads/1677058739508-Screenshot 2023-01-31 at 1.36.19 AM.png', '101', 'India', 'Both', 2),
+(3, 'dsdsd', 1, '1', 'uploads/1677059704229-Screenshot 2023-02-01 at 12.42.02 PM.png', '2023-02-22 15:25:04', '1', NULL, NULL, 'sketching12', 'sketching12', 'sdsdsad', NULL, '1', 'Afghanistan', 'Both', 2),
+(4, 'Software developer', 1, '1', 'uploads/1677153262596-c1.jpeg', '2023-02-23 17:24:22', '1', NULL, NULL, 'Web Designing', 'Web Designing', 'need a person for 8 hour of work', 'uploads/1677153262596-c1.jpeg', '101', 'India', 'Both', 2);
 
 -- --------------------------------------------------------
 
@@ -389,7 +393,9 @@ INSERT INTO `knex_migrations` (`id`, `name`, `batch`, `migration_time`) VALUES
 (9, '20230221130509_add_fields_jobs.js', 6, '2023-02-21 07:36:11'),
 (10, '20230221133400_add_fields_jobs.js', 7, '2023-02-21 08:04:49'),
 (11, '20230222101402_add_job_apply_table.js', 8, '2023-02-22 05:11:21'),
-(12, '20230223051541_add_field_user_table.js', 9, '2023-02-23 00:18:54');
+(12, '20230223051541_add_field_user_table.js', 9, '2023-02-23 00:18:54'),
+(13, '20230224050304_add_field_jobs_table.js', 10, '2023-02-23 23:37:00'),
+(14, '20230224050727_add_field_jobs_table.js', 11, '2023-02-23 23:38:15');
 
 -- --------------------------------------------------------
 
@@ -499,10 +505,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `country_id`, `country_code`, `count
 (2, 'Jhon Doe', 'jhon@gmail.com', '1', '93', 'Afghanistan', '19/08/1997', '8562067021', 'BSC', 'software development,python', 'badminton,football', 'uploads/1676536083365-Screenshot 2023-01-31 at 1.45.19 AM.png', 'Male', 1, 'dddshdg\najhjdahdah\nadsadhad\nsdahsgdahsd', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 2, ''),
 (7, 'web123', 'dsadad@g.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Web Designing', 'Web Designing', NULL, NULL, 2, NULL, 4, 1, NULL, 2023, NULL, NULL, '25d55ad283aa400af464c76d713c07ad', 2, ''),
 (8, 'idris', 'i@g.com', '101', '91', 'India', '2001-09-01', '9358473253', 'BBA, MLSU', 'Web Designing,Graphic Designer', 'Web Designing', 'uploads/1676720661301-1676361815.png', 'male', 2, 'hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  hello mkawdn klawld kwadjkn mawdnm anmwwd nwa.m a dwwanmd .,m. adkwamd kwad jkjbq dwajkd  adwwad wa k  ', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 2, ''),
-(9, 'refugee 1', 'refugee1@gmail.com', '101', '91', 'India', '1997-08-20', '8562067021', 'B.tech engineer', 'Web Designing', 'Web Designing', 'uploads/1676901495743-Screenshot 2023-02-03 at 5.01.12 PM.png', 'male', 1, 'dddjajana c\r\n\r\nsaadadas\r\ndad', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 2, ''),
+(9, 'refugee 1', 'refugee1@gmail.com', '101', '91', 'India', '1997-08-20', '8562067021', 'B.tech engineer', 'Web Designing', 'Web Designing', 'uploads/1676901495743-Screenshot 2023-02-03 at 5.01.12 PM.png', 'male', 1, 'dddjajana c\r\n\r\nsaadadas\r\ndad', 4, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 1, ''),
 (10, 'sponsor1', 'sponsor1@gmail.com', '101', '91', 'India', NULL, '8562067021', NULL, NULL, NULL, NULL, NULL, 2, NULL, 3, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 2, ''),
 (11, 'volunteer1', 'volunteer@gmail.com', '101', '91', 'India', NULL, '8562067021', NULL, NULL, NULL, NULL, NULL, 2, NULL, 2, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 2, ''),
-(12, 'ali bhai', 'alihussainkabri52@gmail.com', '101', '91', 'India', NULL, '8562067021', NULL, NULL, NULL, NULL, NULL, 2, NULL, 3, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 1, '');
+(14, 'ali kabri', 'alihussainkabri52@gmail.com', '101', '91', 'India', NULL, '8562067021', NULL, NULL, NULL, NULL, NULL, 2, NULL, 3, 1, NULL, 2023, NULL, NULL, '202cb962ac59075b964b07152d234b70', 1, '');
 
 --
 -- Indexes for dumped tables
@@ -582,19 +588,19 @@ ALTER TABLE `hobbies`
 -- AUTO_INCREMENT for table `jobApplications`
 --
 ALTER TABLE `jobApplications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `knex_migrations`
 --
 ALTER TABLE `knex_migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `knex_migrations_lock`
@@ -618,7 +624,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
