@@ -31,13 +31,13 @@ async function getAll(req,res){
     try {
         let query = ''
         if (req.query.status){
-            query = `select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets inner join users on users.id=tickets.created_by where tickets.status = ${req.query.status}`
+            query = `select tickets.status,tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets inner join users on users.id=tickets.created_by where tickets.status = ${req.query.status}`
 
             if (req.user_data.role > 2 ){
                 query = query + ` and tickets.created_by = '${req.user_data.id}'`
             }
         }else{
-            query = `select tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets inner join users on users.id=tickets.created_by`
+            query = `select tickets.status,tickets.created_date,tickets.title,tickets.id,users.name,users.email,users.country_code,users.whatsapp_number,users.id as user_id from tickets inner join users on users.id=tickets.created_by`
 
             if (req.user_data.role > 2 ){
                 query = query + ` where tickets.created_by = '${req.user_data.id}'`

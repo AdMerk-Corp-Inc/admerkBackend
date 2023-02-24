@@ -7,9 +7,15 @@ async function create(req, res) {
     let inputs = req.body;
 
     try {
-        if (req.user_data.role < 3) {
+        if (req.user_data.role < 4) {
             inputs["created_by"] = req.user_data.id;
             inputs["created_date"] = dateTime();
+
+            if (req.user_data.role < 3){
+                inputs["is_admin"] = 1
+            }else if (req.user_data.role == 3){
+                inputs["is_admin"] = 2
+            }
 
             if (req.files && req.files.length > 0) {
                 for (let i = 0; i < req.files.length; i++) {
@@ -44,12 +50,14 @@ async function getAllJobs(req, res) {
     let list = []
     try {
         let query = 'select * from jobs';
-        if (req.user_data.role > 2) {
-            query = query + ` where status = 1`
-        } else {
+        if (req.user_data.role == 3) {
+            query = query + ` where status = ${req.query.status} and created_by = ${req.user_data.id}`
+        } else if (req.user_data.role < 3) {
             if (req.query.status) {
                 query = query + ` where status = ${req.query.status}`
             }
+        }else{
+            return res.json({status : 300,message : 'You are not authorized',list : []})
         }
 
         await knex.raw(query + ` order by id desc`).then(response => {
@@ -102,7 +110,7 @@ async function update(req, res) {
     let inputs = req.body;
 
     try {
-        if (req.user_data.role < 3) {
+        if (req.user_data.role < 4) {
             inputs["created_by"] = req.user_data.id;
             inputs["created_date"] = dateTime();
 

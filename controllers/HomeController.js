@@ -77,7 +77,7 @@ async function HomeFeedJobs(req,res){
         }
 
 
-        await knex.raw(query + where_query + `order by id desc LIMIT 20 offset ${offset}` ).then(response => {
+        await knex.raw(query + where_query + `order by RAND() LIMIT 20 offset ${offset}` ).then(response => {
             if (response[0].length > 0){
                 list = response[0]
             }
