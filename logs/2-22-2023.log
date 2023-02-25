@@ -1,4 +1,0 @@
-2023-02-22T10:03:32.314Z  [ERROR  ] - select * from jobs where (jobs.status = 1) and users.country_id = '101'order by id desc LIMIT 20 offset 0 - ER_BAD_FIELD_ERROR: Unknown column 'users.country_id' in 'where clause'
-2023-02-22T10:03:56.461Z  [ERROR  ] - select * from jobs where (jobs.status = 1) and hobby.country_id = '101'order by id desc LIMIT 20 offset 0 - ER_BAD_FIELD_ERROR: Unknown column 'hobby.country_id' in 'where clause'
-2023-02-22T10:41:11.530Z  [ERROR  ] - select users.name,users.email,users.country_code,users.country_name,users.whatsapp_number,users.id as user_id,jobApplications.resume,jobApplications.apply_date from jobApplications inner join users on users.id = jobApplications.user_id where jobApplications.job_id = 1 order by jobApplications.id desc - ER_NO_SUCH_TABLE: Table 'admerk.jobapplications' doesn't exist
-2023-02-22T16:19:59.339Z  [ERROR  ] - inputs is not defined

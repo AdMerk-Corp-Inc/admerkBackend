@@ -34,6 +34,12 @@ app.use((req, res, next) => {
 })
 app.use('/api', routes)
 
-app.listen(port, () => {
+app.use(express.static('build'));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
+
+app.listen(port,() => {
     console.log('port is up on ' + port)
 })
