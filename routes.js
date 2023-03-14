@@ -58,6 +58,9 @@ router.post('/update-job/:id',checkAuth,JobController.update)
 router.get('/change-job-status/:id/:status',checkAuth,JobController.changeStatus)
 router.get('/job-applicant-list/:id',checkAuth,JobController.JobApplicantList)
 router.post('/apply-job/:id',checkAuth,ApplyJobController.apply)
+router.get('/get-state-by-country/:country_id', JobController.getStateByCountry)
+router.get('/get-city-by-state/:state_id', JobController.getCityByState)
+router.get('/delete-job/:id', JobController.deleteJobDtata)
 
 // dashboard routes
 router.get('/dashboard-count',checkAuth,DashboardController.getCount)

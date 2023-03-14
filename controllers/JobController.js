@@ -201,6 +201,67 @@ async function JobApplicantList(req,res){
     return res.json({status,message,list})
 }
 
+async function getStateByCountry(req,res){
+    let status = 500
+    let message = "Oops something went wrong!"
+    let list = []
+
+    try {
+        await knex("states").where("country_id",req.params.country_id).then(response => list = response)
+        status = 200
+        message = "States fetched successfully!"
+    } catch (error) {
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+
+    return res.json({status,message,list})
+}
+
+async function getCityByState(req,res){
+    let status = 500
+    let message = "Oops something went wrong!"
+    let list = []
+
+    try {
+        await knex("cities").where("state_id",req.params.state_id).then(response => list = response)
+
+        status = 200
+        message = "Cities fetched successfully!"
+    } catch (error) {
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+
+    return res.json({status,message,list})
+}
+
+async function deleteJobDtata(req, res){
+    let status = 500
+    let message = "Oops Something Went Wrong"
+    let {id} = req.params
+
+    try{
+        let findQuery = await knex("jobs").where("id", id).then(async (response) => {
+            if(response.length > 0){
+                let deleteJobApplicant = await knex("jobapplications").where("job_id", id).del()
+                let deleteJob = await knex("jobs").where("id", id).del()
+                status = 200
+                message = "Job delted Successfully"
+            }else{
+                status = 300
+                message = "You Have Enter The Wrong ID"
+            }
+        })
+    }catch(error){
+        status = 500
+        message = error.message
+        logger.error(error)
+    }
+    res.json({status, message})
+}
 
 module.exports = {
     create,
@@ -208,5 +269,8 @@ module.exports = {
     getDetail,
     update,
     changeStatus,
-    JobApplicantList
+    JobApplicantList,
+    getStateByCountry,
+    getCityByState,
+    deleteJobDtata
 }
