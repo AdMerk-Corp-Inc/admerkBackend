@@ -246,7 +246,7 @@ async function deleteJobDtata(req, res){
     try{
         let findQuery = await knex("jobs").where("id", id).then(async (response) => {
             if(response.length > 0){
-                let deleteJobApplicant = await knex("jobapplications").where("job_id", id).del()
+                let deleteJobApplicant = await knex("jobApplications").where("job_id", id).del()
                 let deleteJob = await knex("jobs").where("id", id).del()
                 status = 200
                 message = "Job delted Successfully"
