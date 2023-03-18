@@ -7,6 +7,8 @@ async function getCount(req, res) {
     let counts = {
         refugee: 0,
         sponsor: 0,
+        company: 0,
+        job_seeker: 0,
         volunteer: 0,
         jobs: 0,
         open_jobs: 0,

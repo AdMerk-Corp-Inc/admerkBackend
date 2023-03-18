@@ -19,7 +19,13 @@ async function register(req, res) {
                 inputs["created_date"] = HELPERS.dateTime()
 
                 if (req.files && req.files.length > 0) {
-                    inputs["profile_photo"] = "uploads/" + req.files[0].filename
+                    for (let i=0;i<req.files.length;i++){
+                        if (req.files[i].fieldname == 'image'){
+                            inputs["profile_photo"] = "uploads/" + req.files[0].filename
+                        }else if (req.files[i].fieldname == 'passport'){
+                            inputs["passport"] = "uploads/" + req.files[0].filename
+                        }
+                    }
                 }
 
                 await knex("users").insert(inputs, "id").then(async user_response => {

@@ -7,13 +7,13 @@ async function create(req, res) {
     let inputs = req.body;
 
     try {
-        if (req.user_data.role < 4) {
+        if (req.user_data.role < 4 || req.user_data.role == 6) {
             inputs["created_by"] = req.user_data.id;
             inputs["created_date"] = dateTime();
 
             if (req.user_data.role < 3){
                 inputs["is_admin"] = 1
-            }else if (req.user_data.role == 3){
+            }else if (req.user_data.role == 3 || req.user_data.role == 6){
                 inputs["is_admin"] = 2
             }
 
@@ -50,7 +50,7 @@ async function getAllJobs(req, res) {
     let list = []
     try {
         let query = 'select * from jobs';
-        if (req.user_data.role == 3) {
+        if (req.user_data.role == 3 || req.user_data.role == 6) {
             if (req.query.status) {
                 query = query + ` where status = ${req.query.status} and created_by = ${req.user_data.id}`
             }else{
@@ -114,7 +114,7 @@ async function update(req, res) {
     let inputs = req.body;
 
     try {
-        if (req.user_data.role < 4) {
+        if (req.user_data.role < 4 || req.user_data.role == 6) {
             inputs["created_by"] = req.user_data.id;
             inputs["created_date"] = dateTime();
 
@@ -180,6 +180,16 @@ async function JobApplicantList(req,res){
     try {
         if (req.user_data.role < 2){
             let query = `select users.name,users.email,users.country_code,users.country_name,users.whatsapp_number,users.id as user_id,jobApplications.resume,jobApplications.apply_date from jobApplications inner join users on users.id = jobApplications.user_id where jobApplications.job_id = ${req.params.id} order by jobApplications.id desc`
+            await knex.raw(query).then(response => {
+                if (response[0].length > 0){
+                    list = response[0]
+                }
+            })
+
+            status = 200
+            message = "List fetched successfully!"
+        }else if (req.user_data.role == 3 || req.user_data.role == 6){
+            let query = `select users.name,users.email,users.country_code,users.country_name,users.whatsapp_number,users.id as user_id,jobApplications.resume,jobApplications.apply_date from jobApplications inner join jobs on jobs.id= jobApplications.job_id inner join users on users.id = jobApplications.user_id where jobApplications.job_id = ${req.params.id} and jobs.created_by = '${req.user_data.id}' order by jobApplications.id desc`
             await knex.raw(query).then(response => {
                 if (response[0].length > 0){
                     list = response[0]

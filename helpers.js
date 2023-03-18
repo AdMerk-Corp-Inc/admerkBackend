@@ -64,6 +64,14 @@ let dashboard_count_schema = [
                 update_on: 'refugee'
             },
             {
+                taker: 5,
+                update_on: 'job_seeker'
+            },
+            {
+                taker: 6,
+                update_on: 'company'
+            },
+            {
                 taker: 3,
                 update_on: 'sponsor'
             },
