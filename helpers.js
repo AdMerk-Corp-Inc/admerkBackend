@@ -32,7 +32,7 @@ async function sendMail(to, template, myContext, subject) {
         try {
             transporter.use("compile", HBS(options));
             let info = await transporter.sendMail({
-                from: MailConfig.username,
+                from: MailConfig.fromEmail,
                 to: to,
                 subject: subject,
                 template: template,
