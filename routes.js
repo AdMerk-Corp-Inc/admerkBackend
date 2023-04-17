@@ -9,7 +9,7 @@ const JobController = require('./controllers/JobController')
 const ApplyJobController = require('./controllers/ApplyJobController')
 const DashboardController = require('./controllers/DashboardController')
 
-const { checkAuth } = require('./middlewares');
+const { checkAuth, softAuth } = require('./middlewares');
 const logger = require('./logger');
 
 const router = express.Router();
@@ -29,7 +29,7 @@ router.get('/user-detail/:id',checkAuth,UserController.detail)
 router.post('/resetPassword',UserController.resetPassword)
 router.post('/change-password',checkAuth,UserController.changePassword)
 router.get('/change-user-status/:id/:status',checkAuth,UserController.changeStatus)
-router.get("/search-users", UserController.searchUsers);
+router.get("/search-users", softAuth, UserController.searchUsers);
 
 // skills related routes
 router.post('/create-skill',checkAuth,SkillsController.create)
