@@ -368,16 +368,28 @@ async function searchUsers(req, res) {
   let message = "Oops something went wrong !";
   let { search } = req.query;
   let list = [];
+  let columns = ["name", "profile_photo"];
+
+  console.log("ROLE: ", req.user_data.role);
+
+  if (req.user_data) {
+    // Empty columns means select all columns
+    // If a User is a company
+    if (req.user_data.role === 6) columns = [];
+    // If a User is a sponsor
+    if (req.user_data.role === 3) columns = [];
+  }
 
   try {
     status = 200;
     message = "data fetched successsfully";
-    list = await knex("users")
+    list = await knex
+      .select(...columns)
+      .from("users")
       .whereILike("name", `%${search}%`)
       .orWhereILike("email", `%${search}%`)
       .orWhereILike("skills", `%${search}%`)
-      .orWhereILike("hobby", `%${search}%`)
-
+      .orWhereILike("hobby", `%${search}%`);
   } catch (error) {
     status = 500;
     message = error.message;
