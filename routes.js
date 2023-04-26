@@ -8,6 +8,8 @@ const HomeController = require('./controllers/HomeController')
 const JobController = require('./controllers/JobController')
 const ApplyJobController = require('./controllers/ApplyJobController')
 const DashboardController = require('./controllers/DashboardController')
+const BidController  = require('./controllers/BidController');
+const BootCampController = require('./controllers/BootCampController');
 
 const { checkAuth } = require('./middlewares');
 const logger = require('./logger');
@@ -61,6 +63,17 @@ router.post('/apply-job/:id',checkAuth,ApplyJobController.apply)
 router.get('/get-state-by-country/:country_id', JobController.getStateByCountry)
 router.get('/get-city-by-state/:state_id', JobController.getCityByState)
 router.get('/delete-job/:id', JobController.deleteJobDtata)
+
+//Bid Routes
+
+router.post('/create-bid', checkAuth, BidController.createBid)
+router.get('/my-bids', checkAuth, BidController.myBids)
+
+//BootCamp Routes
+
+router.post('/submit-topic', checkAuth, BootCampController.submitTopic)
+router.get('/get-list', checkAuth, BootCampController.getList)
+router.get('/get-details', checkAuth, BootCampController.getDetail)
 
 // dashboard routes
 router.get('/dashboard-count',checkAuth,DashboardController.getCount)
