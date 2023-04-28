@@ -403,22 +403,36 @@ async function emailInvite(req, res) {
   let status = 500;
   let message = "Oops something went wrong !";
   let { emails } = req.query;
-  if(!emails || emails.length === 0) return res.json({status: 400, message: "No Emails Provided"});
-  // console.log("USER: ", req.user_data);
+  if (!emails || emails.length === 0)
+    return res.json({ status: 400, message: "No Emails Provided" });
+  console.log("USER: ", req.user_data);
   try {
+    // Send Emails
     await HELPERS.sendMail(
       emails.split(","),
       "invitationEmail",
       {
         name: req.user_data?.name || "",
-        link:
-          HELPERS.react_url,
+        link: HELPERS.react_url,
       },
       "Join Admerk"
     );
+
+    // Update User
+    await knex("users").where("id", req.user_data.id).update({
+      has_invited: 1,
+    });
+
+    /* Convert Buffer into true and false, for has_invited
+    if (Buffer.isBuffer(attribute)) {
+      if (attribute.readInt8()) return true;
+      else return false;
+    }
+    */
+
     status = 200;
     message = "Email Invitation sent successfully!";
-  }catch(error) {
+  } catch (error) {
     status = 500;
     message = error.message;
     logger.error(error);
@@ -438,5 +452,5 @@ module.exports = {
   resendVerification,
   changeStatus,
   searchUsers,
-  emailInvite
+  emailInvite,
 };
