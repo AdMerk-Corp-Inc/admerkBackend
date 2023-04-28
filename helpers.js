@@ -38,6 +38,7 @@ async function sendMail(to, template, myContext, subject) {
                 template: template,
                 context: myContext,
             })
+            console.log("[sendMain] info: ", info);
             resolve()
         } catch (error) {
             reject(error)

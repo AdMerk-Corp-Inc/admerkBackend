@@ -399,6 +399,34 @@ async function searchUsers(req, res) {
   return res.json({ status, message, list });
 }
 
+async function emailInvite(req, res) {
+  let status = 500;
+  let message = "Oops something went wrong !";
+  let { emails } = req.query;
+  if(!emails || emails.length === 0) return res.json({status: 400, message: "No Emails Provided"});
+  // console.log("USER: ", req.user_data);
+  try {
+    await HELPERS.sendMail(
+      emails.split(","),
+      "invitationEmail",
+      {
+        name: req.user_data?.name || "",
+        link:
+          HELPERS.react_url,
+      },
+      "Join Admerk"
+    );
+    status = 200;
+    message = "Email Invitation sent successfully!";
+  }catch(error) {
+    status = 500;
+    message = error.message;
+    logger.error(error);
+  }
+
+  return res.json({ status, message });
+}
+
 module.exports = {
   login,
   register,
@@ -410,4 +438,5 @@ module.exports = {
   resendVerification,
   changeStatus,
   searchUsers,
+  emailInvite
 };
