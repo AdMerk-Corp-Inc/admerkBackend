@@ -30,7 +30,7 @@ router.post('/resetPassword',UserController.resetPassword)
 router.post('/change-password',checkAuth,UserController.changePassword)
 router.get('/change-user-status/:id/:status',checkAuth,UserController.changeStatus)
 router.get("/search-users", softAuth, UserController.searchUsers);
-router.get("/email-invite", checkAuth, UserController.emailInvite)
+router.post("/invite-people", checkAuth, UserController.invitePeople)
 
 // skills related routes
 router.post('/create-skill',checkAuth,SkillsController.create)

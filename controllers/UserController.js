@@ -399,13 +399,13 @@ async function searchUsers(req, res) {
   return res.json({ status, message, list });
 }
 
-async function emailInvite(req, res) {
+async function invitePeople(req, res) {
   let status = 500;
   let message = "Oops something went wrong !";
-  let { emails } = req.query;
-  if (!emails || emails.length === 0)
-    return res.json({ status: 400, message: "No Emails Provided" });
-  console.log("USER: ", req.user_data);
+  let { emails} = req.body;
+  if ((!emails || emails?.length === 0))
+    return res.json({ status: 400, message: "No Emails or Phone Numbers Provided" });
+
   try {
     // Send Emails
     await HELPERS.sendMail(
@@ -452,5 +452,5 @@ module.exports = {
   resendVerification,
   changeStatus,
   searchUsers,
-  emailInvite,
+  invitePeople,
 };
