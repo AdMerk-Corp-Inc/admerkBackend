@@ -15,7 +15,7 @@ class BidController {
             }
             
             status = 200;
-            message = "boot camp topic Created successfully!"
+            message = "bid Created successfully!"
           
 
             await knex("bid").insert(data)
