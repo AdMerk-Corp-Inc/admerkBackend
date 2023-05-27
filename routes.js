@@ -11,6 +11,7 @@ const DashboardController = require('./controllers/DashboardController')
 const BidController  = require('./controllers/BidController');
 const BootCampController = require('./controllers/BootCampController');
 
+
 const { checkAuth, softAuth } = require('./middlewares');
 const logger = require('./logger');
 
@@ -79,6 +80,7 @@ router.get('/get-details', checkAuth, BootCampController.getDetail)
 
 // dashboard routes
 router.get('/dashboard-count',checkAuth,DashboardController.getCount)
+
 
 // country routes
 router.get('/country-list',async (req,res) => {

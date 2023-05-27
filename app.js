@@ -6,6 +6,7 @@ const path = require("path");
 const defaultPath = "./public/uploads";
 
 const routes = require('./routes')
+const routesApp = require('./routesApp')
 const port = process.env.PORT
 
 let db = require("./knexfile");
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
     next();
 })
 app.use('/api', routes)
+app.use('/app/api/', routesApp)
 
 app.use(express.static('build'));
 
