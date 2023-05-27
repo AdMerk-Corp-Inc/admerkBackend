@@ -9,6 +9,7 @@ async function register(req, res) {
   let message = "Oops something went wrong!";
   let inputs = req.body;
   let user_data = {};
+  console.log("inputs",inputs)
   try {
     inputs.password = MD5(inputs.password);
     await knex("users")

@@ -6,6 +6,7 @@ exports.up = function(knex) {
   return knex.schema.createTable("skills",function(table){
     table.bigIncrements("id")
     table.string("name")
+    table.string("technical_skills")
   })
 };
 
