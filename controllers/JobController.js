@@ -288,6 +288,59 @@ async function deleteJobDtata(req, res) {
    res.json({ status, message });
 }
 
+//Ahmad's
+async function jobPlusUser(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong!";
+   let data = {};
+   let job = {};
+   let user = {};
+
+   try {
+      if (req.params.userId) {
+         if (req.params.jobId) {
+            await knex("users")
+               .where("id", req.params.userId)
+               .then((response) => {
+                  if (response.length > 0) {
+                     user = response[0];
+                     status = 200;
+                     message = "Data fetched successfully!";
+                  } else {
+                     status = 300;
+                     message = "User data found";
+                  }
+               });
+            await knex("jobs")
+               .where("id", req.params.jobId)
+               .then((response) => {
+                  if (response.length > 0) {
+                     job = response[0];
+                     status = 200;
+                     message = "Data fetched successfully!";
+                  } else {
+                     status = 300;
+                     message = "No record found";
+                  }
+               });
+            data = { user, job };
+         } else {
+            status = 400;
+            message = "job id not provided";
+         }
+      } else {
+         status = 400;
+         message = "user id not provided";
+      }
+   } catch (error) {
+      status = 500;
+      message = error?.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message, data });
+}
+
 module.exports = {
    create,
    getAllJobs,
@@ -298,4 +351,5 @@ module.exports = {
    getStateByCountry,
    getCityByState,
    deleteJobDtata,
+   jobPlusUser,
 };

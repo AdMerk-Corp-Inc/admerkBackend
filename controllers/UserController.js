@@ -41,7 +41,7 @@ async function register(req, res) {
                            "lowercase"
                         );
                         new_password = new_password + ":" + user_response[0];
-                        console.log("User:" + user_data);
+                        console.log("User:" + JSON.stringify(user_data));
                         console.log("password:" + new_password);
                         await knex("users")
                            .where("id", user_response[0])

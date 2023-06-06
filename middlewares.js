@@ -17,11 +17,10 @@ function checkAuth(req, res, next) {
 
    let decode_token;
 
+   // .split(" ")[1]
+
    try {
-      decode_token = jwt.verify(
-         auth_header.split(" ")[1],
-         process.env.SECRET_KEY
-      );
+      decode_token = jwt.verify(auth_header, process.env.SECRET_KEY);
    } catch (error) {
       return res.json({
          status: 500,
@@ -37,7 +36,7 @@ function checkAuth(req, res, next) {
    }
 
    let user_id = decode_token.user_data.id;
-   console.log("user id : " + decode_token.user_data);
+   console.log("user id : " + user_id);
    knex("users")
       .where("id", user_id)
       .then(async (response) => {

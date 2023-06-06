@@ -37,7 +37,10 @@ async function register(req, res) {
                         );
                         new_password = new_password + ":" + user_response[0];
                         console.log("password:" + new_password);
-                        console.log("sindinng mail. user is: " + user_data);
+                        console.log(
+                           "sindinng mail. user is: " +
+                              JSON.stringify(user_data)
+                        );
                         await knex("companies")
                            .where("id", user_response[0])
                            .update({
@@ -61,7 +64,7 @@ async function register(req, res) {
 
                status = 200;
                message =
-                  "We have sent an email to verify your account. Check your email to verify hahahahah!";
+                  "We have sent an email to verify your account. Check your email to verify!";
             }
          });
    } catch (error) {

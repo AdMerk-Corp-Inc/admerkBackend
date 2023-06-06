@@ -42,6 +42,9 @@ router.get(
 router.get("/search-users", softAuth, UserController.searchUsers);
 router.post("/invite-people", checkAuth, UserController.invitePeople);
 
+// jobPlusUser
+router.get("/jobPlusUser/:userId:jobId", JobController.jobPlusUser);
+
 // company related routes
 router.post("/company/login", CompanyConntroller.login);
 router.post("/register-company", CompanyConntroller.register);
