@@ -15,8 +15,9 @@ const BidController = require("./controllers/BidController");
 const BootCampController = require("./controllers/BootCampController");
 const CompanyConntroller = require("./controllers/CompanyController");
 
-const { checkAuth, softAuth } = require("./middlewares");
+const { checkAuth, softAuth, checkCompAuth } = require("./middlewares");
 const logger = require("./logger");
+const MigrationsController = require("./controllers/MigrationsController");
 
 const router = express.Router();
 
@@ -41,6 +42,14 @@ router.get(
 );
 router.get("/search-users", softAuth, UserController.searchUsers);
 router.post("/invite-people", checkAuth, UserController.invitePeople);
+router.post(
+   "/company/search/refugees",
+   checkCompAuth,
+   UserController.searchRefugeeSkills
+);
+
+//migrations
+router.get("/migrations/run", MigrationsController.applyMigrations);
 
 // jobPlusUser
 router.get("/jobPlusUser/:userId:jobId", JobController.jobPlusUser);
@@ -76,6 +85,7 @@ router.get(
 
 // job related routes
 router.post("/create-job", checkAuth, JobController.create);
+router.post("/company/create-job", checkCompAuth, JobController.create);
 router.get("/v1/getAllJobs", checkAuth, JobController.getAllJobs);
 router.get("/job-details/:id", checkAuth, JobController.getDetail);
 router.post("/update-job/:id", checkAuth, JobController.update);

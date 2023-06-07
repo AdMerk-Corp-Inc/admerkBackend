@@ -9,8 +9,8 @@ const routes = require("./routes");
 const routesApp = require("./routesApp");
 const port = process.env.PORT;
 
-let db = require("./knexfile");
-global.knex = require("knex")(db[process.env.NODE_ENV]);
+let base = require("./knexfile");
+global.knex = require("knex")(base[process.env.NODE_ENV]);
 
 async function checkDatabaseConnection() {
    try {

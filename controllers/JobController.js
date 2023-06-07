@@ -8,14 +8,38 @@ async function create(req, res) {
 
    try {
       if (req.user_data.role < 4 || req.user_data.role == 6) {
+         console.log("old");
          inputs["created_by"] = req.user_data.id;
          inputs["created_date"] = dateTime();
+         inputs["created_by_company"] = 0;
 
          if (req.user_data.role < 3) {
             inputs["is_admin"] = 1;
          } else if (req.user_data.role == 3 || req.user_data.role == 6) {
             inputs["is_admin"] = 2;
          }
+
+         if (req.files && req.files.length > 0) {
+            for (let i = 0; i < req.files.length; i++) {
+               if (req.files[i].fieldname == "attachement") {
+                  inputs["attachement"] = "uploads/" + req.files[i].filename;
+               } else {
+                  inputs["cover_picture"] = "uploads/" + req.files[i].filename;
+               }
+            }
+         }
+
+         await knex("jobs").insert(inputs);
+
+         status = 200;
+         message = "Job Created successfully!";
+      } else if (req.user_data.role == 5) {
+         console.log("company");
+
+         inputs["created_by"] = req.user_data.id;
+         inputs["created_by_company"] = 1;
+         inputs["created_date"] = dateTime();
+         inputs["is_admin"] = 2;
 
          if (req.files && req.files.length > 0) {
             for (let i = 0; i < req.files.length; i++) {

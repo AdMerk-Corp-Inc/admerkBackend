@@ -41,7 +41,6 @@ async function register(req, res) {
                            "lowercase"
                         );
                         new_password = new_password + ":" + user_response[0];
-                        console.log("User:" + JSON.stringify(user_data));
                         console.log("password:" + new_password);
                         await knex("users")
                            .where("id", user_response[0])
@@ -373,6 +372,34 @@ async function changeStatus(req, res) {
    return res.json({ status, message });
 }
 
+async function searchRefugeeSkills(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong !";
+   let refugees = [];
+
+   try {
+      status = 200;
+      message = "data fetched successsfully";
+      refugees = await knex
+         .select("*")
+         .from("users")
+         .where("role", "=", 4)
+         .andWhere(function () {
+            this.where("skills", "like", `%${req.body.skill}%`).orWhere(
+               "hobby",
+               "like",
+               `%${req.body.hobby}%`
+            );
+         });
+   } catch (error) {
+      status = 500;
+      message = error.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message, refugees });
+}
+
 async function searchUsers(req, res) {
    let status = 500;
    let message = "Oops something went wrong !";
@@ -466,4 +493,5 @@ module.exports = {
    changeStatus,
    searchUsers,
    invitePeople,
+   searchRefugeeSkills,
 };

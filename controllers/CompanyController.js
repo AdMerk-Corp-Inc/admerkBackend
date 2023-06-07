@@ -21,8 +21,8 @@ async function register(req, res) {
             } else {
                inputs["created_date"] = HELPERS.dateTime();
 
-               if (req.files) {
-                  if (req.files[0].fieldname == "image") {
+               if (req.files.length > 0) {
+                  if (req.files[0].fieldname === "logo") {
                      inputs["logo"] = "uploads/" + req.files[0].filename;
                   }
                }
@@ -39,7 +39,7 @@ async function register(req, res) {
                         console.log("password:" + new_password);
                         console.log(
                            "sindinng mail. user is: " +
-                              JSON.stringify(user_data)
+                              JSON.stringify(user_response)
                         );
                         await knex("companies")
                            .where("id", user_response[0])
@@ -81,7 +81,6 @@ async function verifyEmail(req, res) {
    let message = "Oops something went wrong!";
    let user_data = {};
 
-   console.log("here");
    try {
       let forgot_password_token = req.params.token.split(":");
 

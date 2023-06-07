@@ -36,11 +36,12 @@ function checkAuth(req, res, next) {
    }
 
    let user_id = decode_token.user_data.id;
-   console.log("user id : " + user_id);
+   // console.log("user id : " + JSON.stringify(decode_token.user_data));
    knex("users")
       .where("id", user_id)
       .then(async (response) => {
-         if (response.length > 0) {
+         // console.log(JSON.stringify(response.length));
+         if (response.length > 0 && response[0].role !== 5) {
             let current_user = response[0];
             if (current_user.status == 1) {
                req.user_data = current_user;
@@ -51,6 +52,66 @@ function checkAuth(req, res, next) {
                   message: "Your account has been deactivated",
                });
             }
+         } else {
+            return res.json({
+               status: 400,
+               message: "Invalid Token! User not found!",
+            });
+         }
+      });
+}
+
+function checkCompAuth(req, res, next) {
+   const auth_header = req.get("Authorization");
+
+   if (!auth_header) {
+      return res.json({
+         status: 401,
+         message: "Please login to perform action",
+      });
+   }
+
+   let decode_token;
+
+   // .split(" ")[1]
+
+   try {
+      decode_token = jwt.verify(auth_header, process.env.SECRET_KEY);
+   } catch (error) {
+      return res.json({
+         status: 500,
+         message: "Oops something went wrong!",
+      });
+   }
+
+   if (!decode_token) {
+      return res.json({
+         status: 401,
+         message: "No authorization",
+      });
+   }
+
+   let user_id = decode_token.user_data.id;
+   // console.log("user id : " + JSON.stringify(decode_token.user_data));
+   knex("companies")
+      .where("id", user_id)
+      .then(async (response) => {
+         if (response.length > 0 && response[0].role === 5) {
+            let current_user = response[0];
+            if (current_user.status == 1) {
+               req.user_data = current_user;
+               next();
+            } else {
+               return res.json({
+                  status: 401,
+                  message: "Your account has been deactivated",
+               });
+            }
+         } else {
+            return res.json({
+               status: 400,
+               message: "Invalid Token! Company not found!",
+            });
          }
       });
 }
@@ -105,5 +166,6 @@ function softAuth(req, res, next) {
 
 module.exports = {
    checkAuth,
+   checkCompAuth,
    softAuth,
 };
