@@ -47,6 +47,7 @@ router.post(
    checkCompAuth,
    UserController.searchRefugeeSkills
 );
+router.post("/debashish/getUser", UserController.detailfromEmail);
 
 //migrations
 router.get("/migrations/run", MigrationsController.applyMigrations);

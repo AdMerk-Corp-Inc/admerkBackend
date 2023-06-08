@@ -7,8 +7,7 @@ async function create(req, res) {
    let inputs = req.body;
 
    try {
-      if (req.user_data.role < 4 || req.user_data.role == 6) {
-         console.log("old");
+      if (req.user_data.role < 4) {
          inputs["created_by"] = req.user_data.id;
          inputs["created_date"] = dateTime();
          inputs["created_by_company"] = 0;
@@ -33,7 +32,7 @@ async function create(req, res) {
 
          status = 200;
          message = "Job Created successfully!";
-      } else if (req.user_data.role == 5) {
+      } else if (req.user_data.role == 6) {
          console.log("company");
 
          inputs["created_by"] = req.user_data.id;
@@ -319,6 +318,7 @@ async function jobPlusUser(req, res) {
    let data = {};
    let job = {};
    let user = {};
+   let job_creater = {};
 
    try {
       if (req.params.userId) {
@@ -347,7 +347,34 @@ async function jobPlusUser(req, res) {
                      message = "No record found";
                   }
                });
-            data = { user, job };
+            if (job.created_by_company === "1") {
+               await knex("companies")
+                  .where("id", job.created_by)
+                  .then((response) => {
+                     if (response.length > 0) {
+                        job_creater = response[0];
+                        status = 200;
+                        message = "Data fetched successfully!";
+                     } else {
+                        status = 300;
+                        message = "Company record not found";
+                     }
+                  });
+            } else {
+               await knex("users")
+                  .where("id", job.created_by)
+                  .then((response) => {
+                     if (response.length > 0) {
+                        job_creater = response[0];
+                        status = 200;
+                        message = "Data fetched successfully!";
+                     } else {
+                        status = 300;
+                        message = "User record not found";
+                     }
+                  });
+            }
+            data = { user, job, job_creater };
          } else {
             status = 400;
             message = "job id not provided";

@@ -21,7 +21,7 @@ exports.up = function (knex) {
       table.text("description");
       table
          .integer("role")
-         .defaultTo("5")
+         .defaultTo("6")
          .comment("1=admin,2=volunteer,3=sponsor,4=refugee,5=company");
       table.integer("status").defaultTo(1).comment("1=active,2=not active");
       table.integer("created_by");

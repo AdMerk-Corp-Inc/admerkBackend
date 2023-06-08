@@ -41,7 +41,7 @@ function checkAuth(req, res, next) {
       .where("id", user_id)
       .then(async (response) => {
          // console.log(JSON.stringify(response.length));
-         if (response.length > 0 && response[0].role !== 5) {
+         if (response.length > 0 && response[0].role !== 6) {
             let current_user = response[0];
             if (current_user.status == 1) {
                req.user_data = current_user;
@@ -96,7 +96,7 @@ function checkCompAuth(req, res, next) {
    knex("companies")
       .where("id", user_id)
       .then(async (response) => {
-         if (response.length > 0 && response[0].role === 5) {
+         if (response.length > 0 && response[0].role === 6) {
             let current_user = response[0];
             if (current_user.status == 1) {
                req.user_data = current_user;

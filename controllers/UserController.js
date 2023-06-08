@@ -481,6 +481,47 @@ async function invitePeople(req, res) {
    return res.json({ status, message });
 }
 
+async function detailfromEmail(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong!";
+   let detail = [];
+
+   try {
+      await knex("users")
+         .where("email", req.body.email)
+         .then((response) => {
+            if (response.length > 0) {
+               detail = response;
+               status = 200;
+               message = "Data fetched successfully!";
+            } else {
+               status = 404;
+               message = "User data not found";
+            }
+         });
+      if (detail.length == 0) {
+         await knex("companies")
+            .where("email", req.body.email)
+            .then((response) => {
+               if (response.length > 0) {
+                  detail = response;
+                  status = 200;
+                  message = "Data fetched successfully!";
+               } else {
+                  status = 404;
+                  message = "User data not found";
+               }
+            });
+      }
+   } catch (error) {
+      status = 500;
+      message = error?.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message, detail });
+}
+
 module.exports = {
    login,
    register,
@@ -494,4 +535,5 @@ module.exports = {
    searchUsers,
    invitePeople,
    searchRefugeeSkills,
+   detailfromEmail,
 };
