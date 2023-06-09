@@ -116,6 +116,7 @@ router.get("/my-bids", checkAuth, BidController.myBids);
 //BootCamp Routes
 
 router.post("/submit-topic", checkAuth, BootCampController.submitTopic);
+router.post("/create-bootcamp", checkCompAuth, BootCampController.create);
 router.get("/get-list", checkAuth, BootCampController.getList);
 router.get("/get-details", checkAuth, BootCampController.getDetail);
 

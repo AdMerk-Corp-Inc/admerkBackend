@@ -92,28 +92,59 @@ function checkCompAuth(req, res, next) {
    }
 
    let user_id = decode_token.user_data.id;
-   // console.log("user id : " + JSON.stringify(decode_token.user_data));
-   knex("companies")
-      .where("id", user_id)
-      .then(async (response) => {
-         if (response.length > 0 && response[0].role === 6) {
-            let current_user = response[0];
-            if (current_user.status == 1) {
-               req.user_data = current_user;
-               next();
+   let user_role = decode_token.user_data.role;
+   console.log(
+      "user id : " +
+         JSON.stringify(decode_token.user_data.id) +
+         " user role : " +
+         user_role
+   );
+   if (user_role === 6) {
+      knex("companies")
+         .where("id", user_id)
+         .then(async (response) => {
+            if (response.length > 0 && response[0].role === 6) {
+               let current_user = response[0];
+               if (current_user.status == 1) {
+                  req.user_data = current_user;
+                  next();
+               } else {
+                  return res.json({
+                     status: 401,
+                     message: "Your account has been deactivated",
+                  });
+               }
             } else {
                return res.json({
-                  status: 401,
-                  message: "Your account has been deactivated",
+                  status: 400,
+                  message: "Invalid Token! Company not found!",
                });
             }
-         } else {
-            return res.json({
-               status: 400,
-               message: "Invalid Token! Company not found!",
-            });
-         }
-      });
+         });
+   } else {
+      knex("users")
+         .where("id", user_id)
+         .then(async (response) => {
+            // console.log(JSON.stringify(response.length));
+            if (response.length > 0 && response[0].role !== 6) {
+               let current_user = response[0];
+               if (current_user.status == 1) {
+                  req.user_data = current_user;
+                  next();
+               } else {
+                  return res.json({
+                     status: 401,
+                     message: "Your account has been deactivated",
+                  });
+               }
+            } else {
+               return res.json({
+                  status: 400,
+                  message: "Invalid Token! User not found!",
+               });
+            }
+         });
+   }
 }
 
 // Checks for auth, if auth is present validates and passes user data, else just passes the request
