@@ -43,9 +43,14 @@ router.get(
 router.get("/search-users", softAuth, UserController.searchUsers);
 router.post("/invite-people", checkAuth, UserController.invitePeople);
 router.post(
-   "/company/search/refugees",
+   "/search/refugees",
    checkCompAuth,
    UserController.searchRefugeeSkills
+);
+router.post(
+   "/search/job-seeker",
+   checkCompAuth,
+   UserController.searchJobSeeker
 );
 router.post("/debashish/getUser", UserController.detailfromEmail);
 
@@ -59,6 +64,16 @@ router.get("/jobPlusUser/:userId:jobId", JobController.jobPlusUser);
 router.post("/company/login", CompanyConntroller.login);
 router.post("/register-company", CompanyConntroller.register);
 router.get("/company/verifyemail/:token", CompanyConntroller.verifyEmail);
+router.put(
+   "/company/changePassword",
+   checkCompAuth,
+   CompanyConntroller.changePassword
+);
+router.put(
+   "/company/changeStatus/:id:status",
+   checkAuth,
+   CompanyConntroller.changeStatus
+);
 
 // skills related routes
 router.post("/create-skill", checkAuth, SkillsController.create);
@@ -117,6 +132,19 @@ router.get("/my-bids", checkAuth, BidController.myBids);
 
 router.post("/submit-topic", checkAuth, BootCampController.submitTopic);
 router.post("/create-bootcamp", checkCompAuth, BootCampController.create);
+router.get(
+   "/search-boot/:search_key",
+   checkAuth,
+   BootCampController.searchBoot
+);
+router.get("/getMineBoots", checkCompAuth, BootCampController.getMineBoots);
+router.put("/update-boot/:id", checkCompAuth, BootCampController.updateBoot);
+router.delete(
+   "/delete-bootcamp/:id",
+   checkCompAuth,
+   BootCampController.deleteBoot
+);
+router.get("/search-bootcamp/:search_key", BootCampController.searchBoot);
 router.get("/get-list", checkAuth, BootCampController.getList);
 router.get("/get-details", checkAuth, BootCampController.getDetail);
 

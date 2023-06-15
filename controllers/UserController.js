@@ -385,11 +385,35 @@ async function searchRefugeeSkills(req, res) {
          .from("users")
          .where("role", "=", 4)
          .andWhere(function () {
-            this.where("skills", "like", `%${req.body.skill}%`).orWhere(
-               "hobby",
-               "like",
-               `%${req.body.hobby}%`
-            );
+            this.where("skills", "like", `%${req.body.skill}%`)
+               .orWhere("hobby", "like", `%${req.body.hobby}%`)
+               .orWhere("country_name", "like", `%${req.body.country_name}%`);
+         });
+   } catch (error) {
+      status = 500;
+      message = error.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message, refugees });
+}
+
+async function searchJobSeeker(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong !";
+   let refugees = [];
+
+   try {
+      status = 200;
+      message = "data fetched successsfully";
+      refugees = await knex
+         .select("*")
+         .from("users")
+         .where("role", "=", 5)
+         .andWhere(function () {
+            this.where("skills", "like", `%${req.body.skill}%`)
+               .orWhere("hobby", "like", `%${req.body.hobby}%`)
+               .orWhere("country_name", "like", `%${req.body.country_name}%`);
          });
    } catch (error) {
       status = 500;
@@ -535,5 +559,6 @@ module.exports = {
    searchUsers,
    invitePeople,
    searchRefugeeSkills,
+   searchJobSeeker,
    detailfromEmail,
 };

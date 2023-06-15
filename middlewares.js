@@ -93,12 +93,12 @@ function checkCompAuth(req, res, next) {
 
    let user_id = decode_token.user_data.id;
    let user_role = decode_token.user_data.role;
-   console.log(
-      "user id : " +
-         JSON.stringify(decode_token.user_data.id) +
-         " user role : " +
-         user_role
-   );
+   // console.log(
+   //    "user id : " +
+   //       JSON.stringify(decode_token.user_data.id) +
+   //       " user role : " +
+   //       user_role
+   // );
    if (user_role === 6) {
       knex("companies")
          .where("id", user_id)

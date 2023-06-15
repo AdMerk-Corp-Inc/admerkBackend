@@ -158,8 +158,81 @@ async function login(req, res) {
    return res.json({ status, message, user_data });
 }
 
+async function changePassword(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong!";
+   console.log("here");
+   try {
+      await knex("companies")
+         .where("id", req.user_data.id)
+         .update({
+            password: MD5(req.body.password),
+         });
+
+      status = 200;
+      message = "Password updated successfully!";
+   } catch (error) {
+      status = 500;
+      message = error.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message });
+}
+
+async function changeStatus(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong!";
+
+   try {
+      if (req.user_data.role == 1) {
+         await knex("companies").where("id", req.params.id).update({
+            status: req.params.status,
+            updated_by: req.user_data.id,
+            updated_date: HELPERS.dateTime(),
+         });
+
+         status = 200;
+         message = "Data updated successfully!";
+      } else {
+         status = 300;
+         message = "You are not authorized to perform this action";
+      }
+   } catch (error) {
+      status = 500;
+      message = error.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message });
+}
+
+// async function editCompnay(req, res) {
+//    let status = 500;
+//    let message = "Oops something went wrong!";
+
+//    try {
+//       await knex("companies")
+//          .where("id", req.user_data.id)
+//          .update({
+
+//          });
+
+//       status = 200;
+//       message = "Password updated successfully!";
+//    } catch (error) {
+//       status = 500;
+//       message = error.message;
+//       logger.error(error);
+//    }
+
+//    return res.json({ status, message });
+// }
+
 module.exports = {
    register,
    login,
    verifyEmail,
+   changePassword,
+   changeStatus,
 };
