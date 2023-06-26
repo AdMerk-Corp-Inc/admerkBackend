@@ -142,7 +142,6 @@ async function getAllUsers(req, res) {
    let { search, page, role } = req.query;
    let offset = (page - 1) * 10;
    try {
-      console.log("role: " + JSON.stringify(req.user_data));
       if (req.user_data.role < 3) {
          let query = `select * from users`;
          let where_query = "";

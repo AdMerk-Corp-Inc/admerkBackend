@@ -72,7 +72,6 @@ async function getAllJobs(req, res) {
    let message = "Oops something went wrong!";
    let list = [];
    try {
-      console.log("body");
       let query = "select * from jobs";
       if (req.user_data.role == 3 || req.user_data.role == 6) {
          if (req.query.status) {
@@ -179,13 +178,16 @@ async function changeStatus(req, res) {
    let status = 500;
    let message = "Oops something went wrong!";
 
+   console.log(req.user_data.role);
    try {
-      if (req.user_data.role < 3) {
-         await knex("jobs").where("id", req.params.id).update({
-            status: req.params.status,
-            updated_by: req.user_data.id,
-            updated_date: dateTime(),
-         });
+      if (req.user_data.role < 3 || req.user_data.role == 6) {
+         const job = await knex("jobs").where("id", req.params.id);
+         console.log(job);
+         // await knex("jobs").where("id", req.params.id).update({
+         //    status: req.params.status,
+         //    updated_by: req.user_data.id,
+         //    updated_date: dateTime(),
+         // });
 
          status = 200;
          message = "Job status changed successfully!";

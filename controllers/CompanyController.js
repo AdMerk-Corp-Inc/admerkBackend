@@ -9,6 +9,7 @@ async function register(req, res) {
    let message = "Oops something went wrong!";
    let inputs = req.body;
    let user_data = {};
+   console.log(inputs.description);
    try {
       inputs.password = MD5(inputs.password);
       await knex("companies")
@@ -47,6 +48,7 @@ async function register(req, res) {
                               email_code: new_password,
                            })
                            .then(async (response) => {
+                              console.log(user_response[0].description);
                               await HELPERS.sendMail(
                                  inputs.email,
                                  "verifyemail",
@@ -163,6 +165,7 @@ async function changePassword(req, res) {
    let message = "Oops something went wrong!";
    console.log("here");
    try {
+      console.log("here");
       await knex("companies")
          .where("id", req.user_data.id)
          .update({
@@ -207,6 +210,80 @@ async function changeStatus(req, res) {
    return res.json({ status, message });
 }
 
+async function getAllCompanies(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong!";
+   let list = [];
+   let { search, page, role } = req.query;
+   let offset = (page - 1) * 10;
+   try {
+      if (req.user_data.role < 3) {
+         let query = `select * from companies`;
+         let where_query = "";
+         if (search) {
+            where_query = ` where (companies.name like '%${search}%' or companies.email like '%${search}%' or companies.whatsapp_number like '%${search}%') `;
+
+            if (role) {
+               where_query = where_query + ` and companies.role = ${role} `;
+            }
+         } else if (role) {
+            where_query = where_query + ` where companies.role = ${role} `;
+         }
+
+         await knex
+            .raw(
+               query +
+                  where_query +
+                  ` order by id desc LIMIT 10 offset ${offset}`
+            )
+            .then((response) => {
+               if (response[0].length > 0) {
+                  list = response[0];
+               }
+            });
+
+         status = 200;
+         message = "data fetched successfully!";
+      } else {
+         status = 300;
+         message = "You don't have permission";
+      }
+   } catch (error) {
+      status = 500;
+      message = error?.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message, list });
+}
+
+async function getDetail(req, res) {
+   let status = 500;
+   let message = "Oops something went wrong!";
+   let detail = {};
+
+   try {
+      await knex("companies")
+         .where("id", req.params.id)
+         .then((response) => {
+            if (response.length > 0) {
+               detail = response[0];
+               status = 200;
+               message = "Data fetched successfully!";
+            } else {
+               status = 300;
+               message = "User data found";
+            }
+         });
+   } catch (error) {
+      status = 500;
+      message = error?.message;
+      logger.error(error);
+   }
+
+   return res.json({ status, message, detail });
+}
+
 // async function editCompnay(req, res) {
 //    let status = 500;
 //    let message = "Oops something went wrong!";
@@ -235,4 +312,6 @@ module.exports = {
    verifyEmail,
    changePassword,
    changeStatus,
+   getDetail,
+   getAllCompanies,
 };

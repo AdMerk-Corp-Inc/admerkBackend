@@ -11,6 +11,11 @@ exports.up = function (knex) {
       table.string("country_id");
       table.string("country_code");
       table.string("country_name");
+      table.string("state_id");
+      table.string("state_name");
+      table.string("city_id");
+      table.string("city_name");
+      table.string("zip_code");
       table.string("logo");
       table.string("office_location");
       table.string("since");
@@ -22,7 +27,7 @@ exports.up = function (knex) {
       table
          .integer("role")
          .defaultTo("6")
-         .comment("1=admin,2=volunteer,3=sponsor,4=refugee,5=company");
+         .comment("1=admin,2=volunteer,3=sponsor,4=refugee,6=company");
       table.integer("status").defaultTo(1).comment("1=active,2=not active");
       table.integer("created_by");
       table.integer("created_date");

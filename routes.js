@@ -22,7 +22,7 @@ const MigrationsController = require("./controllers/MigrationsController");
 const router = express.Router();
 
 // home related routes
-router.post("/fetch-home-feeds", checkAuth, HomeController.HomeFeed);
+router.post("/fetch-home-feeds", checkCompAuth, HomeController.HomeFeed);
 router.post("/fetch-home-jobs", checkAuth, HomeController.HomeFeedJobs);
 
 // user related routes
@@ -61,6 +61,12 @@ router.get("/migrations/run", MigrationsController.applyMigrations);
 router.get("/jobPlusUser/:userId:jobId", JobController.jobPlusUser);
 
 // company related routes
+router.get("/getAllCompanies", checkAuth, CompanyConntroller.getAllCompanies);
+router.get(
+   "/get-deatils/company/:id",
+   checkCompAuth,
+   CompanyConntroller.getDetail
+);
 router.post("/company/login", CompanyConntroller.login);
 router.post("/register-company", CompanyConntroller.register);
 router.get("/company/verifyemail/:token", CompanyConntroller.verifyEmail);
@@ -100,14 +106,14 @@ router.get(
 );
 
 // job related routes
-router.post("/create-job", checkAuth, JobController.create);
+router.post("/create-job", checkCompAuth, JobController.create);
 router.post("/company/create-job", checkCompAuth, JobController.create);
-router.get("/v1/getAllJobs", checkAuth, JobController.getAllJobs);
+router.get("/v1/getAllJobs", checkCompAuth, JobController.getAllJobs);
 router.get("/job-details/:id", checkAuth, JobController.getDetail);
-router.post("/update-job/:id", checkAuth, JobController.update);
+router.post("/update-job/:id", checkCompAuth, JobController.update);
 router.get(
    "/change-job-status/:id/:status",
-   checkAuth,
+   checkCompAuth,
    JobController.changeStatus
 );
 router.get(
@@ -146,7 +152,11 @@ router.delete(
 );
 router.get("/search-bootcamp/:search_key", BootCampController.searchBoot);
 router.get("/get-list", checkAuth, BootCampController.getList);
-router.get("/get-details", checkAuth, BootCampController.getDetail);
+router.get(
+   "/get-bootcamp-details/:id",
+   checkAuth,
+   BootCampController.getDetail
+);
 
 // dashboard routes
 router.get("/dashboard-count", checkAuth, DashboardController.getCount);

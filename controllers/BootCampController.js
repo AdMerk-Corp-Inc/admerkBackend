@@ -11,6 +11,7 @@ class BootCampController {
          if (req.user_data.role === 3 || req.user_data.role === 6) {
             let inputs = req.body;
             inputs["created_by"] = req.user_data.id;
+            inputs["status"] = 1;
             inputs["created_date"] = dateTime();
 
             if (req.user_data.role === 6) {
@@ -100,7 +101,7 @@ class BootCampController {
    }
 
    static async updateBoot(req, res) {
-      let status = 500;
+      let Status = 500;
       let message = "Oops something went wrong !";
       let document = null;
 
@@ -143,9 +144,9 @@ class BootCampController {
                               document: document,
                            });
                         message = "bootcamp updated sucessfully";
-                        status = 200;
+                        Status = 200;
                      } else {
-                        status = 403;
+                        Status = 403;
                         message = "not your bootcamp to update";
                      }
                   } else if (req.user_data.role == 6) {
@@ -162,27 +163,27 @@ class BootCampController {
                               document: document,
                            });
                         message = "your bootcamp is updated sucessfully";
-                        status = 200;
+                        Status = 200;
                      } else {
-                        status = 403;
+                        Status = 403;
                         message = "not your bootcamp to update";
                      }
                   } else {
-                     status = 403;
+                     Status = 403;
                      message = "bootcamps not found!";
                   }
                } else {
                   message = "boot camp not found!";
-                  status = 404;
+                  Status = 404;
                }
             });
       } catch (error) {
-         status = 500;
+         Status = 500;
          message = error.message;
          logger.error(error);
       }
 
-      return res.json({ status, message });
+      return res.json({ Status, message });
    }
 
    static async deleteBoot(req, res) {
@@ -190,6 +191,7 @@ class BootCampController {
       let message = "Oops something went wrong !";
       let bootcamps = [];
 
+      console.log("here");
       try {
          await knex("bootcamp")
             .where("id", req.params.id)
@@ -235,6 +237,8 @@ class BootCampController {
          logger.error(error);
       }
 
+      // console.log(status + "  msg:" + message + "  boots: " + bootcamps);
+
       return res.json({ status, message, bootcamps });
    }
 
@@ -275,7 +279,8 @@ class BootCampController {
       let list = [];
       try {
          await knex("bootcamp")
-            .orderBy("id", "desc")
+            .where("status", 1)
+            .orderBy("id", "created_date")
             .then((response) => (list = response));
 
          status = 200;
@@ -299,7 +304,7 @@ class BootCampController {
                if (response.length > 0) {
                   detail = response[0];
                } else {
-                  status = 300;
+                  status = 400;
                   message = "No record found successfully!";
                }
             });

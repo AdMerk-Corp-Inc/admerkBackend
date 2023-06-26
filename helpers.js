@@ -90,10 +90,10 @@ let dashboard_count_schema = [
             taker: 5,
             update_on: "job_seeker",
          },
-         {
-            taker: 6,
-            update_on: "company",
-         },
+         // {
+         //    taker: 6,
+         //    update_on: "company",
+         // },
          {
             taker: 3,
             update_on: "sponsor",
@@ -102,6 +102,30 @@ let dashboard_count_schema = [
             taker: 2,
             update_on: "volunteer",
          },
+      ],
+   },
+   {
+      variable: "status",
+      table_name: "companies",
+      actions: [
+         {
+            taker: "all",
+            update_on: "company",
+         },
+      ],
+   },
+   {
+      variable: "status",
+      table_name: "bootcamp",
+      actions: [
+         {
+            taker: "all",
+            update_on: "bootcamps",
+         },
+         // {
+         //    taker: "live",
+         //    update_on: "bootcamps",
+         // },
       ],
    },
    {

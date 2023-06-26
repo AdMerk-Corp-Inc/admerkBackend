@@ -6,7 +6,7 @@ let ctx = {
 };
 
 function checkAuth(req, res, next) {
-   const auth_header = req.get("Authorization");
+   let auth_header = req.get("Authorization");
 
    if (!auth_header) {
       return res.json({
@@ -15,9 +15,9 @@ function checkAuth(req, res, next) {
       });
    }
 
-   let decode_token;
+   auth_header = auth_header.split(" ")[1];
 
-   // .split(" ")[1]
+   let decode_token;
 
    try {
       decode_token = jwt.verify(auth_header, process.env.SECRET_KEY);
@@ -36,7 +36,7 @@ function checkAuth(req, res, next) {
    }
 
    let user_id = decode_token.user_data.id;
-   // console.log("user id : " + JSON.stringify(decode_token.user_data));
+   // console.log("user id : " + JSON.stringify(decode_token.user_data.role));
    knex("users")
       .where("id", user_id)
       .then(async (response) => {
@@ -62,7 +62,7 @@ function checkAuth(req, res, next) {
 }
 
 function checkCompAuth(req, res, next) {
-   const auth_header = req.get("Authorization");
+   let auth_header = req.get("Authorization");
 
    if (!auth_header) {
       return res.json({
@@ -71,6 +71,7 @@ function checkCompAuth(req, res, next) {
       });
    }
 
+   auth_header = auth_header.split(" ")[1];
    let decode_token;
 
    // .split(" ")[1]
@@ -93,12 +94,12 @@ function checkCompAuth(req, res, next) {
 
    let user_id = decode_token.user_data.id;
    let user_role = decode_token.user_data.role;
-   // console.log(
-   //    "user id : " +
-   //       JSON.stringify(decode_token.user_data.id) +
-   //       " user role : " +
-   //       user_role
-   // );
+   console.log(
+      "user id : " +
+         JSON.stringify(decode_token.user_data.id) +
+         " user role : " +
+         user_role
+   );
    if (user_role === 6) {
       knex("companies")
          .where("id", user_id)
