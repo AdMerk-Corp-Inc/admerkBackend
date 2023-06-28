@@ -75,7 +75,8 @@ function dateTime() {
    return moment().tz(process.env.TIME_ZONE).format("YYYY-MM-DD HH:mm:ss");
 }
 
-const react_url = "http://localhost:3000/";
+// const react_url = "http://localhost:3000/";
+const react_url = "https://platform.admerkcorp.com/";
 
 let dashboard_count_schema = [
    {
